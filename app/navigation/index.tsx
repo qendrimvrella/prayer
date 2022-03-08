@@ -5,10 +5,11 @@ import {
 } from "@react-navigation/native";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "../screens/HomeScreen";
 import LinkingConfiguration from "./LinkingConfiguration";
-import OtherScreen from "../screens/OtherScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import DatesScreen from "../screens/DatesScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 export default function Navigation({
   colorScheme,
@@ -25,18 +26,38 @@ export default function Navigation({
   );
 }
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 function RootNavigator() {
   return (
-    <Drawer.Navigator
-      initialRouteName="Home"
+    <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        tabBarStyle: {
+          display: "none",
+        },
       }}
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Other" component={OtherScreen} />
-    </Drawer.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={({ navigation }: any) => ({
+          headerShown: false,
+        })}
+      />
+      <Tab.Screen
+        name="Dates"
+        component={DatesScreen}
+        options={({ navigation }: any) => ({
+          headerShown: false,
+        })}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={({ navigation }: any) => ({
+          headerShown: false,
+        })}
+      />
+    </Tab.Navigator>
   );
 }

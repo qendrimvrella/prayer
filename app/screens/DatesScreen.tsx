@@ -4,10 +4,10 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
-export default function OtherScreen({ navigation }: RootTabScreenProps<'Other'>) {
+export default function DatesScreen({ navigation }: RootTabScreenProps<'Dates'>) {
   return (
     <View style={styles.container}>
-      <Text>Qendrim</Text>
+      <Text>Dates</Text>
     </View>
   );
 }
