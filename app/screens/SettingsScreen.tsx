@@ -1,16 +1,24 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import NavBar from '../components/NavBar';
-
-import { Text, View } from '../components/Themed';
+import fontWeights from '../constants/fontWeights';
 import { RootTabScreenProps } from '../types';
+import Text from '../components/Text';
 
 export default function SettingsScreen({
 	navigation,
 }: RootTabScreenProps<'Settings'>) {
 	return (
 		<View style={styles.container}>
-			<Text>Settings</Text>
+			<Text
+				style={{
+					fontSize: 24,
+					fontFamily: fontWeights[500],
+					marginBottom: 40,
+					paddingHorizontal: 24,
+				}}>
+				Cilësimet
+			</Text>
 			<NavBar activeRoute="Settings" />
 		</View>
 	);
@@ -19,8 +27,7 @@ export default function SettingsScreen({
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
+		paddingTop: 80,
 		backgroundColor: '#fff',
 	},
 });

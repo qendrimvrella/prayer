@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import ImportantDates from '../components/ImportantDates';
 import NavBar from '../components/NavBar';
-
-import { Text, View } from '../components/Themed';
+import Text from '../components/Text';
+import fontWeights from '../constants/fontWeights';
 import { RootTabScreenProps } from '../types';
 
 export default function DatesScreen({
@@ -10,7 +11,18 @@ export default function DatesScreen({
 }: RootTabScreenProps<'Dates'>) {
 	return (
 		<View style={styles.container}>
-			<Text>Dates</Text>
+			<Text
+				style={{
+					fontSize: 24,
+					fontFamily: fontWeights[500],
+					marginBottom: 40,
+					paddingHorizontal: 24,
+				}}>
+				Datat me rëndësi
+			</Text>
+
+			<ImportantDates />
+
 			<NavBar activeRoute="Dates" />
 		</View>
 	);
@@ -19,8 +31,7 @@ export default function DatesScreen({
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#D54E3A',
+		paddingTop: 80,
+		backgroundColor: '#fff',
 	},
 });
