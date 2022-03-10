@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import NavBar from '../components/NavBar';
-import { RootTabScreenProps } from '../types';
+import { PrayesType, RootTabScreenProps } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
 import Text from '../components/Text';
 import fontWeights from '../constants/fontWeights';
-import Layout from '../constants/Layout';
 import Times from '../components/Times';
+import prayers from '../constants/prayers';
+import { useState } from 'react';
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
 	return (
 		<LinearGradient
 			style={styles.container}
-			colors={['#D54E3A', '#EF9E4D']}>
+			colors={[
+				prayers[activePrayer].firstColor,
+				prayers[activePrayer].secondColor,
+			]}>
 			<View>
 				<Text
 					style={{
@@ -21,7 +26,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 						fontSize: 18,
 						fontFamily: fontWeights[300],
 					}}>
-					Kosovë, Prishtinë
+					Kosovë, Ferizaj
 				</Text>
 				<Text
 					style={{
@@ -30,7 +35,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 						fontSize: 16,
 						fontFamily: fontWeights[300],
 					}}>
-					07/03/2022
+					10/03/2022
 				</Text>
 			</View>
 
@@ -46,7 +51,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 						fontSize: 24,
 						fontFamily: fontWeights[300],
 					}}>
-					Ikindia 15:03
+					{prayers[activePrayer].name} 15:03
 				</Text>
 				<Text
 					style={{
@@ -60,31 +65,43 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 			</View>
 
 			<Times
-				activeTime="Ikindia"
+				activeTime={activePrayer}
 				items={[
 					{
+						key: 'imsaku',
 						name: 'Imsaku',
 						time: '04:55',
+						onPress: () => setActivePrayer('imsaku'),
 					},
 					{
+						key: 'lindjaDjellit',
 						name: 'Lindja Djellit',
 						time: '04:55',
+						onPress: () => setActivePrayer('lindjaDjellit'),
 					},
 					{
+						key: 'dreka',
 						name: 'Dreka',
 						time: '11:50',
+						onPress: () => setActivePrayer('dreka'),
 					},
 					{
+						key: 'ikindia',
 						name: 'Ikindia',
 						time: '15:03',
+						onPress: () => setActivePrayer('ikindia'),
 					},
 					{
+						key: 'akshami',
 						name: 'Akshami',
 						time: '17:39',
+						onPress: () => setActivePrayer('akshami'),
 					},
 					{
+						key: 'jacia',
 						name: 'Jacia',
 						time: '19:10',
+						onPress: () => setActivePrayer('jacia'),
 					},
 				]}
 			/>
