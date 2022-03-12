@@ -8,9 +8,16 @@ import fontWeights from '../constants/fontWeights';
 import Times from '../components/Times';
 import prayers from '../constants/prayers';
 import { useState } from 'react';
+import allTimes from '../times';
+import Layout from '../constants/Layout';
+import dayjs from 'dayjs';
+const formatedDate = new Date().toISOString().substring(0, 10);
+const homeDate = dayjs(formatedDate).format('DD/MM/YYYY')
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
+	const time = allTimes[formatedDate];
+
 	return (
 		<LinearGradient
 			style={styles.container}
@@ -18,93 +25,122 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				prayers[activePrayer].firstColor,
 				prayers[activePrayer].secondColor,
 			]}>
-			<View>
-				<Text
-					style={{
-						color: '#fff',
-						textAlign: 'center',
-						fontSize: 18,
-						fontFamily: fontWeights[300],
-					}}>
-					Kosovë, Ferizaj
-				</Text>
-				<Text
-					style={{
-						color: '#fff',
-						textAlign: 'center',
-						fontSize: 16,
-						fontFamily: fontWeights[300],
-					}}>
-					10/03/2022
-				</Text>
-			</View>
-
 			<View
 				style={{
-					marginTop: 130,
-					marginBottom: 30,
+					justifyContent: 'space-between',
+					height: Layout.window.height - 210,
 				}}>
-				<Text
-					style={{
-						color: '#fff',
-						textAlign: 'center',
-						fontSize: 24,
-						fontFamily: fontWeights[300],
-					}}>
-					{prayers[activePrayer].name} 15:03
-				</Text>
-				<Text
-					style={{
-						color: '#fff',
-						textAlign: 'center',
-						fontSize: 56,
-						fontFamily: fontWeights[500],
-					}}>
-					00:55:23
-				</Text>
+				<View>
+					<Text
+						style={{
+							color: '#fff',
+							textAlign: 'center',
+							fontSize: 18,
+							fontFamily: fontWeights[300],
+						}}>
+						Kosovë, Ferizaj
+					</Text>
+					<Text
+						style={{
+							color: '#fff',
+							textAlign: 'center',
+							fontSize: 16,
+							fontFamily: fontWeights[300],
+						}}>
+						{homeDate}
+					</Text>
+
+					{time.festaFetar != '' && (
+						<View
+							style={{
+								backgroundColor: '#759CDC22',
+								justifyContent: 'center',
+								alignItems: 'center',
+								width: Layout.window.width - 24 * 2,
+								height: 48,
+								paddingHorizontal: 16,
+								borderRadius: 8,
+								marginTop: 30,
+							}}>
+							<Text
+								style={{
+									color: '#fff',
+								}}>
+								{time.festaFetar}
+							</Text>
+						</View>
+					)}
+				</View>
+
+				<View>
+					<View
+						style={{
+							marginBottom: 40,
+						}}>
+						<Text
+							style={{
+								color: '#fff',
+								textAlign: 'center',
+								fontSize: 24,
+								fontFamily: fontWeights[300],
+							}}>
+							{prayers[activePrayer].name} {time[activePrayer]}
+						</Text>
+						<Text
+							style={{
+								color: '#fff',
+								textAlign: 'center',
+								fontSize: 56,
+								fontFamily: fontWeights[500],
+							}}>
+							4 m
+						</Text>
+					</View>
+
+					<Times
+						activeTime={activePrayer}
+						items={[
+							{
+								key: 'imsaku',
+								name: 'Imsaku',
+								time: time.imsaku,
+								onPress: () => setActivePrayer('imsaku'),
+							},
+							{
+								key: 'lindjaDjellit',
+								name: 'Lindja Djellit',
+								time: time.lindjaDjellit,
+								onPress: () => setActivePrayer('lindjaDjellit'),
+							},
+							{
+								key: 'dreka',
+								name: 'Dreka',
+								time: time.dreka,
+								onPress: () => setActivePrayer('dreka'),
+							},
+							{
+								key: 'ikindia',
+								name: 'Ikindia',
+								time: time.ikindia,
+								onPress: () => setActivePrayer('ikindia'),
+							},
+							{
+								key: 'akshami',
+								name: 'Akshami',
+								time: time.akshami,
+								onPress: () => setActivePrayer('akshami'),
+							},
+							{
+								key: 'jacia',
+								name: 'Jacia',
+								time: time.jacia,
+								onPress: () => setActivePrayer('jacia'),
+							},
+						]}
+					/>
+				</View>
 			</View>
 
-			<Times
-				activeTime={activePrayer}
-				items={[
-					{
-						key: 'imsaku',
-						name: 'Imsaku',
-						time: '04:55',
-						onPress: () => setActivePrayer('imsaku'),
-					},
-					{
-						key: 'lindjaDjellit',
-						name: 'Lindja Djellit',
-						time: '04:55',
-						onPress: () => setActivePrayer('lindjaDjellit'),
-					},
-					{
-						key: 'dreka',
-						name: 'Dreka',
-						time: '11:50',
-						onPress: () => setActivePrayer('dreka'),
-					},
-					{
-						key: 'ikindia',
-						name: 'Ikindia',
-						time: '15:03',
-						onPress: () => setActivePrayer('ikindia'),
-					},
-					{
-						key: 'akshami',
-						name: 'Akshami',
-						time: '17:39',
-						onPress: () => setActivePrayer('akshami'),
-					},
-					{
-						key: 'jacia',
-						name: 'Jacia',
-						time: '19:10',
-						onPress: () => setActivePrayer('jacia'),
-					},
-				]}
-			/>
 			<NavBar activeRoute="Home" />
 		</LinearGradient>
 	);

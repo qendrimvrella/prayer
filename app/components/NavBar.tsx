@@ -3,8 +3,8 @@ import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import CalendarIcon from '../icons/CalendarIcon';
 import ClockIcon from '../icons/ClockIcon';
-import HamburgerIcon from '../icons/HamburgerIcon';
 import NavItem from './NavItem';
+import SettingsIcon from '../icons/SettingsIcon';
 
 interface Props {
 	activeRoute: string;
@@ -38,7 +38,7 @@ const NavBar = ({ activeRoute }: Props) => {
 			isActive: activeRoute === 'Settings',
 			activeBgColor: '#759CDC',
 			icon: () => (
-				<HamburgerIcon
+				<SettingsIcon
 					stroke={
 						activeRoute === 'Settings' || activeRoute === 'Home'
 							? '#fff'

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import Colors from '../constants/Colors';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
-import GlobeIcon from '../icons/GlobeIcon';
 import InfoIcon from '../icons/InfoIcon';
 import LocationIcon from '../icons/LocationIcon';
 import NotificationIcon from '../icons/NotificationIcon';
@@ -25,7 +24,7 @@ const Settings = () => {
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',
-						marginBottom: 20,
+						marginBottom: 12,
 					}}>
 					<LocationIcon />
 					<Text
@@ -43,7 +42,7 @@ const Settings = () => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						marginBottom: 16,
+						paddingVertical: 8,
 					}}>
 					<Text>Shteti</Text>
 					<Text
@@ -53,11 +52,12 @@ const Settings = () => {
 						Kosovë
 					</Text>
 				</Pressable>
-				<View
+				<Pressable
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
+						paddingVertical: 8,
 					}}>
 					<Text>Qyteti</Text>
 					<Text
@@ -66,14 +66,14 @@ const Settings = () => {
 						}}>
 						Ferizaj
 					</Text>
-				</View>
+				</Pressable>
 
 				<View
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',
-						marginBottom: 20,
-						marginTop: 24,
+						marginBottom: 12,
+						marginTop: 16,
 					}}>
 					<NotificationIcon />
 					<Text
@@ -91,7 +91,7 @@ const Settings = () => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						marginBottom: 16,
+						paddingVertical: 8,
 					}}>
 					<Text>Aktivizo njoftimet</Text>
 					<CheckBox isActive={true} />
@@ -102,7 +102,7 @@ const Settings = () => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						marginBottom: 16,
+						paddingVertical: 8,
 					}}>
 					<Text>Njoftimet me zë</Text>
 					<CheckBox isActive={false} />
@@ -112,7 +112,7 @@ const Settings = () => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						marginBottom: 16,
+						paddingVertical: 8,
 					}}>
 					<Text>Vibrimi</Text>
 					<CheckBox isActive={true} />
@@ -122,7 +122,7 @@ const Settings = () => {
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
-						marginBottom: 16,
+						paddingVertical: 8,
 					}}>
 					<Text>Drita njoftuese</Text>
 					<CheckBox isActive={false} />
@@ -134,6 +134,7 @@ const Settings = () => {
 						justifyContent: 'space-between',
 						alignItems: 'center',
 						paddingRight: 5,
+						paddingVertical: 8,
 					}}>
 					<Text>Para-njoftimet</Text>
 					<ArrowRightIcon />
@@ -143,39 +144,7 @@ const Settings = () => {
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',
-						marginBottom: 20,
-						marginTop: 24,
-					}}>
-					<GlobeIcon />
-					<Text
-						style={{
-							color: Colors.primary,
-							fontSize: 16,
-							marginLeft: 12,
-						}}>
-						Modaliteti i natës
-					</Text>
-				</View>
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-					}}>
-					<Text>Gjendja</Text>
-					<Text
-						style={{
-							color: '#A3A3A3',
-						}}>
-						Joaktive
-					</Text>
-				</View>
-
-				<View
-					style={{
-						flexDirection: 'row',
-						alignItems: 'center',
-						marginTop: 24,
+						marginTop: 16,
 					}}>
 					<InfoIcon />
 					<Text
