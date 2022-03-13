@@ -10,9 +10,13 @@ import prayers from '../constants/prayers';
 import Layout from '../constants/Layout';
 import dayjs from 'dayjs';
 import usePrayerTime from '../hooks/usePrayerTime';
+import LottieView from 'lottie-react-native';
+import Colors from '../constants/Colors';
+import useLocationHandler from '../hooks/useLocationHandler';
 const homeDate = dayjs().format('DD/MM/YYYY');
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+	const { country, city } = useLocationHandler();
 	const { activePrayer, hoursTillPrayer, minutesTillPrayer, time } =
 		usePrayerTime();
 
@@ -23,10 +27,21 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				prayers[activePrayer].firstColor,
 				prayers[activePrayer].secondColor,
 			]}>
+			{/* <LottieView
+				loop
+				autoPlay={true}
+				style={{
+					position: 'absolute',
+					marginTop: 30,
+					width: 200,
+					height: 200,
+				}}
+				source={require('../lottie/sun-rise.json')}
+			/> */}
 			<View
 				style={{
 					justifyContent: 'space-between',
-					height: Layout.window.height - 210,
+					height: Layout.window.height - 190,
 				}}>
 				<View>
 					<Text
@@ -36,7 +51,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 							fontSize: 18,
 							fontFamily: fontWeights[300],
 						}}>
-						Kosovë, Ferizaj
+						{country}, {city}
 					</Text>
 					<Text
 						style={{
@@ -106,32 +121,32 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 							{
 								key: 'imsaku',
 								name: 'Imsaku',
-								time: time['ks'].imsaku,
+								time: time['Kosovë'].imsaku,
 							},
 							{
 								key: 'lindjaDjellit',
 								name: 'Lindja Djellit',
-								time: time['ks'].lindjaDjellit,
+								time: time['Kosovë'].lindjaDjellit,
 							},
 							{
 								key: 'dreka',
 								name: 'Dreka',
-								time: time['ks'].dreka,
+								time: time['Kosovë'].dreka,
 							},
 							{
 								key: 'ikindia',
 								name: 'Ikindia',
-								time: time['ks'].ikindia,
+								time: time['Kosovë'].ikindia,
 							},
 							{
 								key: 'akshami',
 								name: 'Akshami',
-								time: time['ks'].akshami,
+								time: time['Kosovë'].akshami,
 							},
 							{
 								key: 'jacia',
 								name: 'Jacia',
-								time: time['ks'].jacia,
+								time: time['Kosovë'].jacia,
 							},
 						]}
 					/>
@@ -147,8 +162,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		paddingTop: 80,
-		paddingBottom: 120,
 		alignItems: 'center',
-		backgroundColor: '#759CDC',
+		backgroundColor: Colors.primary,
 	},
 });

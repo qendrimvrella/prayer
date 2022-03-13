@@ -18,22 +18,22 @@ export default function usePrayerTime() {
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
 		const imsakuTime = new Date(
-			`${firstCharsOfNewDate}${time['ks'].imsaku}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${time['Kosovë'].imsaku}${lastCharsOfNewDate}`,
 		).getTime();
 		const lindjaDjellitTime = new Date(
-			`${firstCharsOfNewDate}${time['ks'].lindjaDjellit}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${time['Kosovë'].lindjaDjellit}${lastCharsOfNewDate}`,
 		).getTime();
 		const drekaTime = new Date(
-			`${firstCharsOfNewDate}${time['ks'].dreka}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${time['Kosovë'].dreka}${lastCharsOfNewDate}`,
 		).getTime();
 		const ikindiaTime = new Date(
-			`${firstCharsOfNewDate}${time['ks'].ikindia}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${time['Kosovë'].ikindia}${lastCharsOfNewDate}`,
 		).getTime();
 		const akshamiTime = new Date(
-			`${firstCharsOfNewDate}${time['ks'].akshami}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${time['Kosovë'].akshami}${lastCharsOfNewDate}`,
 		).getTime();
 		const jaciaTime = new Date(
-			`${firstCharsOfNewDate}${time['ks'].jacia}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${time['Kosovë'].jacia}${lastCharsOfNewDate}`,
 		).getTime();
 		let activeDiffPrayer: number = imsakuTime;
 

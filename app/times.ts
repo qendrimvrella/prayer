@@ -1,6 +1,6 @@
 const times: any = {
 	'01-01': {
-		ks: {
+		'Kosovë': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',
@@ -8,7 +8,7 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		al: {
+		'Shqipëri': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',
@@ -16,7 +16,7 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		mk: {
+		'Maqedoni Veriore': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',
@@ -27,7 +27,7 @@ const times: any = {
 		festaFetar: 'Viti i Ri 2022',
 	},
 	'01-02': {
-		ks: {
+		'Kosovë': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:45',
@@ -35,7 +35,7 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		al: {
+		'Shqipëri': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',
@@ -43,7 +43,7 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		mk: {
+		'Maqedoni Veriore': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',
@@ -54,15 +54,15 @@ const times: any = {
 		festaFetar: 'Viti i Ri 2022',
 	},
 	'03-13': {
-		ks: {
+		'Kosovë': {
 			imsaku: '04:14',
 			lindjaDjellit: '07:03',
-			dreka: '11:44',
-			ikindia: '14:05',
-			akshami: '16:21',
-			jacia: '18:00',
+			dreka: '11:49',
+			ikindia: '15:08',
+			akshami: '17:48',
+			jacia: '19:19',
 		},
-		al: {
+		'Shqipëri': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',
@@ -70,7 +70,7 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		mk: {
+		'Maqedoni Veriore': {
 			imsaku: '05:21',
 			lindjaDjellit: '07:03',
 			dreka: '11:44',

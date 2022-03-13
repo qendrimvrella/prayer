@@ -53,7 +53,7 @@ const NavBar = ({ activeRoute }: Props) => {
 	return (
 		<View
 			style={{
-				height: 120,
+				height: 90,
 				position: 'absolute',
 				bottom: 0,
 				left: 0,

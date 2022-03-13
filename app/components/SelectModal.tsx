@@ -11,16 +11,15 @@ interface Props {
 	modalHeight: number;
 	onClose: () => void;
 	value: string;
-	items: Array<{
-		name: string;
-		onPress: () => void;
-	}>;
+	onPress: (name: string) => void;
+	items: Array<string>;
 }
 
 const SelectModal = ({
 	modalVisible,
 	onClose,
 	modalHeight,
+	onPress,
 	value,
 	items,
 }: Props) => {
@@ -38,7 +37,10 @@ const SelectModal = ({
 					{items.map((item, index) => (
 						<Pressable
 							key={index}
-							onPress={item.onPress}
+							onPress={() => {
+								onPress(item);
+								onClose();
+							}}
 							style={({ pressed }) => [
 								{
 									backgroundColor: pressed
@@ -58,14 +60,14 @@ const SelectModal = ({
 									styles.selectTitle,
 									{
 										fontFamily:
-											value === item.name
+											value === item
 												? fontWeights[500]
 												: fontWeights[400],
 									},
 								]}>
-								{item.name}
+								{item}
 							</Text>
-							{value === item.name && (
+							{value === item && (
 								<CheckIcon
 									height={14}
 									width={14}

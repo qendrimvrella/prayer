@@ -2,6 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Pressable, View } from 'react-native';
 import Colors from '../constants/Colors';
+import locations from '../constants/locations';
+import useLocationHandler from '../hooks/useLocationHandler';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import InfoIcon from '../icons/InfoIcon';
 import LocationIcon from '../icons/LocationIcon';
@@ -13,6 +15,9 @@ import { Text } from './Themed';
 const Settings = () => {
 	const navigation = useNavigation();
 	const [countryModalVisibility, setCountryModalVisibility] = useState(false);
+	const [cityModalVisibility, setCityModalVisibility] = useState(false);
+	const { country, city, onCountryChange, onCityChange } =
+		useLocationHandler();
 
 	return (
 		<>
@@ -49,10 +54,12 @@ const Settings = () => {
 						style={{
 							color: '#A3A3A3',
 						}}>
-						Kosovë
+						{country}
 					</Text>
 				</Pressable>
+
 				<Pressable
+					onPress={() => setCityModalVisibility(true)}
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',
@@ -64,7 +71,7 @@ const Settings = () => {
 						style={{
 							color: '#A3A3A3',
 						}}>
-						Ferizaj
+						{city}
 					</Text>
 				</Pressable>
 
@@ -153,21 +160,17 @@ const Settings = () => {
 				modalVisible={countryModalVisibility}
 				onClose={() => setCountryModalVisibility(false)}
 				modalHeight={320}
-				value="Kosovë"
-				items={[
-					{
-						name: 'Kosovë',
-						onPress: () => {},
-					},
-					{
-						name: 'Shqipëri',
-						onPress: () => {},
-					},
-					{
-						name: 'Maqedoni Veriore',
-						onPress: () => {},
-					},
-				]}
+				value={country}
+				onPress={onCountryChange}
+				items={Object.keys(locations)}
+			/>
+			<SelectModal
+				modalVisible={cityModalVisibility}
+				onClose={() => setCityModalVisibility(false)}
+				modalHeight={540}
+				value={city}
+				onPress={onCityChange}
+				items={Object.keys(locations.Kosovë)}
 			/>
 		</>
 	);
