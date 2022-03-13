@@ -13,6 +13,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import { RootStackParamList } from '../types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ModalScreen from '../screens/ModalScreen';
+import AboutUsScreen from '../screens/AboutUsScreen';
 
 export default function Navigation({
 	colorScheme,
@@ -45,6 +46,7 @@ function RootNavigator() {
 					headerShown: false,
 				}}>
 				<Stack.Screen name="Modal" component={ModalScreen} />
+				<Stack.Screen name="AboutUs" component={AboutUsScreen} />
 			</Stack.Group>
 		</Stack.Navigator>
 	);

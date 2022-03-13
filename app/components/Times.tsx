@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import Layout from '../constants/Layout';
 import Text from './Text';
 
@@ -9,7 +9,6 @@ interface Props {
 		key: string;
 		name: string;
 		time: string;
-		onPress: () => void;
 	}>;
 }
 
@@ -17,28 +16,20 @@ const Times = ({ activeTime, items }: Props) => {
 	return (
 		<View>
 			{items.map((item, index) => (
-				<Pressable
+				<View
 					key={index}
-					onPress={item.onPress}
-					style={({ pressed }) => [
-						{
-							backgroundColor: pressed
-								? '#ffffff55'
-								: item.key === activeTime
-								? '#ffffff55'
-								: '#ffffff22',
-						},
-						{
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-							alignItems: 'center',
-							width: Layout.window.width - 24 * 2,
-							height: 48,
-							paddingHorizontal: 16,
-							borderRadius: 8,
-							marginBottom: 8,
-						},
-					]}>
+					style={{
+						flexDirection: 'row',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+						width: Layout.window.width - 24 * 2,
+						height: 48,
+						paddingHorizontal: 16,
+						backgroundColor:
+							item.key === activeTime ? '#ffffff55' : '#ffffff22',
+						borderRadius: 8,
+						marginBottom: 8,
+					}}>
 					<Text
 						style={{
 							color: '#fff',
@@ -51,7 +42,7 @@ const Times = ({ activeTime, items }: Props) => {
 						}}>
 						{item.time}
 					</Text>
-				</Pressable>
+				</View>
 			))}
 		</View>
 	);

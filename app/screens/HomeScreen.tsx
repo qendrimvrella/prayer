@@ -1,22 +1,20 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import NavBar from '../components/NavBar';
-import { PrayesType, RootTabScreenProps } from '../types';
+import { RootTabScreenProps } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
 import Text from '../components/Text';
 import fontWeights from '../constants/fontWeights';
 import Times from '../components/Times';
 import prayers from '../constants/prayers';
-import { useState } from 'react';
-import allTimes from '../times';
 import Layout from '../constants/Layout';
 import dayjs from 'dayjs';
-const formatedDate = new Date().toISOString().substring(0, 10);
-const homeDate = dayjs(formatedDate).format('DD/MM/YYYY')
+import usePrayerTime from '../hooks/usePrayerTime';
+const homeDate = dayjs().format('DD/MM/YYYY');
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
-	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
-	const time = allTimes[formatedDate];
+	const { activePrayer, hoursTillPrayer, minutesTillPrayer, time } =
+		usePrayerTime();
 
 	return (
 		<LinearGradient
@@ -93,7 +91,12 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								fontSize: 56,
 								fontFamily: fontWeights[500],
 							}}>
-							4 m
+							{hoursTillPrayer > 0
+								? `${hoursTillPrayer}h `
+								: null}
+							{minutesTillPrayer > 0
+								? `${minutesTillPrayer}m`
+								: '0m'}
 						</Text>
 					</View>
 
@@ -103,38 +106,32 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 							{
 								key: 'imsaku',
 								name: 'Imsaku',
-								time: time.imsaku,
-								onPress: () => setActivePrayer('imsaku'),
+								time: time['ks'].imsaku,
 							},
 							{
 								key: 'lindjaDjellit',
 								name: 'Lindja Djellit',
-								time: time.lindjaDjellit,
-								onPress: () => setActivePrayer('lindjaDjellit'),
+								time: time['ks'].lindjaDjellit,
 							},
 							{
 								key: 'dreka',
 								name: 'Dreka',
-								time: time.dreka,
-								onPress: () => setActivePrayer('dreka'),
+								time: time['ks'].dreka,
 							},
 							{
 								key: 'ikindia',
 								name: 'Ikindia',
-								time: time.ikindia,
-								onPress: () => setActivePrayer('ikindia'),
+								time: time['ks'].ikindia,
 							},
 							{
 								key: 'akshami',
 								name: 'Akshami',
-								time: time.akshami,
-								onPress: () => setActivePrayer('akshami'),
+								time: time['ks'].akshami,
 							},
 							{
 								key: 'jacia',
 								name: 'Jacia',
-								time: time.jacia,
-								onPress: () => setActivePrayer('jacia'),
+								time: time['ks'].jacia,
 							},
 						]}
 					/>

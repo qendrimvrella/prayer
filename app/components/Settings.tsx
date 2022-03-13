@@ -117,16 +117,7 @@ const Settings = () => {
 					<Text>Vibrimi</Text>
 					<CheckBox isActive={true} />
 				</View>
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						paddingVertical: 8,
-					}}>
-					<Text>Drita njoftuese</Text>
-					<CheckBox isActive={false} />
-				</View>
+
 				<Pressable
 					onPress={() => navigation.navigate('Modal')}
 					style={{
@@ -140,7 +131,8 @@ const Settings = () => {
 					<ArrowRightIcon />
 				</Pressable>
 
-				<View
+				<Pressable
+					onPress={() => navigation.navigate('AboutUs')}
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',
@@ -155,7 +147,7 @@ const Settings = () => {
 						}}>
 						Rreth nesh
 					</Text>
-				</View>
+				</Pressable>
 			</View>
 			<SelectModal
 				modalVisible={countryModalVisibility}
