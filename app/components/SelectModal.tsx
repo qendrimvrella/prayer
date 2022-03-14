@@ -7,6 +7,7 @@ import CheckIcon from '../icons/CheckIcon';
 import { View, Text } from './Themed';
 
 interface Props {
+	title: string;
 	modalVisible: boolean;
 	modalHeight: number;
 	onClose: () => void;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const SelectModal = ({
+	title,
 	modalVisible,
 	onClose,
 	modalHeight,
@@ -33,7 +35,7 @@ const SelectModal = ({
 							height: modalHeight,
 						},
 					]}>
-					<Text style={styles.title}>Shteti</Text>
+					<Text style={styles.title}>{title}</Text>
 					{items.map((item, index) => (
 						<Pressable
 							key={index}

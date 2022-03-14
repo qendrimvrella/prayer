@@ -1,22 +1,43 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function useLocationHandler() {
-	const [country, setCountry] = useState('Kosovë');
+	const [country, setCountry] = useState<
+		'Kosovë' | 'Shqipëri' | 'Maqedoni Veriore'
+	>('Kosovë');
 	const [city, setCity] = useState('Prishtinë');
 
-	const onCountryChange = useCallback(async (name) => {
-		try {
-			await AsyncStorage.setItem('country', name);
-			setCountry(name);
-		} catch (error) {}
-	}, []);
-	const onCityChange = useCallback(async (name) => {
-		try {
-			await AsyncStorage.setItem('city', name);
-			setCity(name);
-		} catch (error) {}
-	}, []);
+	const onCountryChange = useCallback(
+		async (name) => {
+			try {
+				await AsyncStorage.setItem('country', name);
+				await AsyncStorage.setItem('city', '');
+				if (name == 'Kosovë') {
+					await AsyncStorage.setItem('city', 'Prishtinë');
+					setCity('Prishtinë');
+				} else if (name == 'Shqipëri') {
+					await AsyncStorage.setItem('city', 'Tirana');
+					setCity('Tirana');
+				} else if (name == 'Maqedoni Veriore') {
+					await AsyncStorage.setItem('city', 'Shkupi');
+					setCity('Shkupi');
+				}
+				setCountry(name);
+			} catch (error) {}
+		},
+		[country],
+	);
+
+	const onCityChange = useCallback(
+		async (name) => {
+			try {
+				await AsyncStorage.setItem('city', name);
+				setCity(name);
+			} catch (error) {}
+		},
+		[city],
+	);
 
 	const getItems = async () => {
 		try {
@@ -31,14 +52,16 @@ export default function useLocationHandler() {
 		} catch (error) {}
 	};
 
-	useEffect(() => {
-		getItems();
-	}, []);
+	useFocusEffect(
+		useCallback(() => {
+			getItems();
+		}, [country, city]),
+	);
 
 	return {
 		country,
 		city,
-        onCountryChange,
-        onCityChange,
+		onCountryChange,
+		onCityChange,
 	} as const;
 }

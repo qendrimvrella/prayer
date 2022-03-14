@@ -27,13 +27,13 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
           Settings: {
             screens: {
-              SettingsScreen: "two",
+              SettingsScreen: "three",
             },
           },
         },
       },
       Modal: "modal",
-      AboutUs: "modal",
+      AboutUs: "aboutModal",
       NotFound: "*",
     },
   },

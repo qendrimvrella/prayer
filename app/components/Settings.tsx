@@ -71,7 +71,7 @@ const Settings = () => {
 						style={{
 							color: '#A3A3A3',
 						}}>
-						{city}
+						{city != '' ? city : 'Zgjidhni'}
 					</Text>
 				</Pressable>
 
@@ -157,6 +157,7 @@ const Settings = () => {
 				</Pressable>
 			</View>
 			<SelectModal
+				title="Shteti"
 				modalVisible={countryModalVisibility}
 				onClose={() => setCountryModalVisibility(false)}
 				modalHeight={320}
@@ -165,12 +166,13 @@ const Settings = () => {
 				items={Object.keys(locations)}
 			/>
 			<SelectModal
+				title="Qyteti"
 				modalVisible={cityModalVisibility}
 				onClose={() => setCityModalVisibility(false)}
-				modalHeight={540}
+				modalHeight={580}
 				value={city}
 				onPress={onCityChange}
-				items={Object.keys(locations.Kosovë)}
+				items={Object.keys(locations[country])}
 			/>
 		</>
 	);

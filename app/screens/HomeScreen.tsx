@@ -8,17 +8,22 @@ import fontWeights from '../constants/fontWeights';
 import Times from '../components/Times';
 import prayers from '../constants/prayers';
 import Layout from '../constants/Layout';
-import dayjs from 'dayjs';
 import usePrayerTime from '../hooks/usePrayerTime';
 import LottieView from 'lottie-react-native';
 import Colors from '../constants/Colors';
-import useLocationHandler from '../hooks/useLocationHandler';
-const homeDate = dayjs().format('DD/MM/YYYY');
+import { getFullDate } from '../helpers';
+const homeDate = getFullDate();
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
-	const { country, city } = useLocationHandler();
-	const { activePrayer, hoursTillPrayer, minutesTillPrayer, time } =
-		usePrayerTime();
+	const {
+		activePrayer,
+		hoursTillPrayer,
+		minutesTillPrayer,
+		paryer,
+		festaFetar,
+		country,
+		city,
+	} = usePrayerTime();
 
 	return (
 		<LinearGradient
@@ -30,13 +35,14 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 			{/* <LottieView
 				loop
 				autoPlay={true}
+				speed={0.4}
 				style={{
 					position: 'absolute',
 					marginTop: 30,
 					width: 200,
 					height: 200,
 				}}
-				source={require('../lottie/sun-rise.json')}
+				source={require('../lottie/sun.json')}
 			/> */}
 			<View
 				style={{
@@ -63,7 +69,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 						{homeDate}
 					</Text>
 
-					{time.festaFetar != '' && (
+					{festaFetar != '' && (
 						<View
 							style={{
 								backgroundColor: '#759CDC22',
@@ -79,7 +85,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								style={{
 									color: '#fff',
 								}}>
-								{time.festaFetar}
+								{festaFetar}
 							</Text>
 						</View>
 					)}
@@ -97,7 +103,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								fontSize: 24,
 								fontFamily: fontWeights[300],
 							}}>
-							{prayers[activePrayer].name} {time[activePrayer]}
+							{prayers[activePrayer].name} {paryer[activePrayer]}
 						</Text>
 						<Text
 							style={{
@@ -121,32 +127,32 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 							{
 								key: 'imsaku',
 								name: 'Imsaku',
-								time: time['Kosovë'].imsaku,
+								time: paryer.imsaku,
 							},
 							{
 								key: 'lindjaDjellit',
 								name: 'Lindja Djellit',
-								time: time['Kosovë'].lindjaDjellit,
+								time: paryer.lindjaDjellit,
 							},
 							{
 								key: 'dreka',
 								name: 'Dreka',
-								time: time['Kosovë'].dreka,
+								time: paryer.dreka,
 							},
 							{
 								key: 'ikindia',
 								name: 'Ikindia',
-								time: time['Kosovë'].ikindia,
+								time: paryer.ikindia,
 							},
 							{
 								key: 'akshami',
 								name: 'Akshami',
-								time: time['Kosovë'].akshami,
+								time: paryer.akshami,
 							},
 							{
 								key: 'jacia',
 								name: 'Jacia',
-								time: time['Kosovë'].jacia,
+								time: paryer.jacia,
 							},
 						]}
 					/>

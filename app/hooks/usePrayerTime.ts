@@ -1,13 +1,25 @@
 import { useEffect, useState } from 'react';
 import allTimes from '../times';
-import { diffHrs, diffMins } from '../helpers';
+import { checkCityTime, diffHrs, diffMins } from '../helpers';
 import { PrayesType } from '../types';
+import useLocationHandler from './useLocationHandler';
+import locations from '../constants/locations';
 const formatedDate = new Date().toISOString().substring(5, 10);
 
 export default function usePrayerTime() {
+	const { country, city } = useLocationHandler();
 	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
 	const [hoursTillPrayer, setHoursTillPrayer] = useState(0);
 	const [minutesTillPrayer, setMinutesTillPrayer] = useState(0);
+	const [paryer, setPrayer] = useState({
+		imsaku: '',
+		lindjaDjellit: '',
+		dreka: '',
+		ikindia: '',
+		akshami: '',
+		jacia: '',
+	});
+	const festaFetar = allTimes[formatedDate].festaFetar;
 	const time = allTimes[formatedDate];
 
 	useEffect(() => {
@@ -17,23 +29,61 @@ export default function usePrayerTime() {
 		const firstCharsOfNewDate = newDate.toISOString().substring(0, 11);
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
+		// const currentDate = new Date(
+		// 	`${firstCharsOfNewDate}03:02${lastCharsOfNewDate}`,
+		// ).getTime();
+
+		let imsaku = checkCityTime(
+			time[country].imsaku,
+			locations[country][city],
+		);
+		let lindjaDjellit = checkCityTime(
+			time[country].lindjaDjellit,
+			locations[country][city],
+		);
+		let dreka = checkCityTime(
+			time[country].dreka,
+			locations[country][city],
+		);
+		let ikindia = checkCityTime(
+			time[country].ikindia,
+			locations[country][city],
+		);
+		let akshami = checkCityTime(
+			time[country].akshami,
+			locations[country][city],
+		);
+		let jacia = checkCityTime(
+			time[country].jacia,
+			locations[country][city],
+		);
+
+		setPrayer({
+			imsaku,
+			lindjaDjellit,
+			dreka,
+			ikindia,
+			akshami,
+			jacia,
+		});
+
 		const imsakuTime = new Date(
-			`${firstCharsOfNewDate}${time['Kosovë'].imsaku}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${imsaku}${lastCharsOfNewDate}`,
 		).getTime();
 		const lindjaDjellitTime = new Date(
-			`${firstCharsOfNewDate}${time['Kosovë'].lindjaDjellit}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${lindjaDjellit}${lastCharsOfNewDate}`,
 		).getTime();
 		const drekaTime = new Date(
-			`${firstCharsOfNewDate}${time['Kosovë'].dreka}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${dreka}${lastCharsOfNewDate}`,
 		).getTime();
 		const ikindiaTime = new Date(
-			`${firstCharsOfNewDate}${time['Kosovë'].ikindia}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${ikindia}${lastCharsOfNewDate}`,
 		).getTime();
 		const akshamiTime = new Date(
-			`${firstCharsOfNewDate}${time['Kosovë'].akshami}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${akshami}${lastCharsOfNewDate}`,
 		).getTime();
 		const jaciaTime = new Date(
-			`${firstCharsOfNewDate}${time['Kosovë'].jacia}${lastCharsOfNewDate}`,
+			`${firstCharsOfNewDate}${jacia}${lastCharsOfNewDate}`,
 		).getTime();
 		let activeDiffPrayer: number = imsakuTime;
 
@@ -59,12 +109,15 @@ export default function usePrayerTime() {
 		const diffMs = activeDiffPrayer - currentDate;
 		setHoursTillPrayer(diffHrs(diffMs));
 		setMinutesTillPrayer(diffMins(diffMs));
-	}, []);
+	}, [country]);
 
 	return {
 		activePrayer,
 		hoursTillPrayer,
 		minutesTillPrayer,
-        time,
+		country,
+		city,
+		paryer,
+		festaFetar,
 	} as const;
 }
