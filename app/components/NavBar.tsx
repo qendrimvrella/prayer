@@ -5,6 +5,7 @@ import CalendarIcon from '../icons/CalendarIcon';
 import ClockIcon from '../icons/ClockIcon';
 import NavItem from './NavItem';
 import SettingsIcon from '../icons/SettingsIcon';
+import { BlurView } from 'expo-blur';
 
 interface Props {
 	activeRoute: string;
@@ -51,23 +52,23 @@ const NavBar = ({ activeRoute }: Props) => {
 	];
 
 	return (
-		<View
+		<BlurView
+			intensity={80}
 			style={{
 				height: 90,
 				position: 'absolute',
 				bottom: 0,
 				left: 0,
 				width: '100%',
-				backgroundColor: '#ffffff44',
 				flexDirection: 'row',
 				justifyContent: 'space-around',
 				alignItems: 'center',
-				paddingBottom: 30,
+				paddingBottom: 20,
 			}}>
 			{ROUTES.map((item, index) => (
 				<NavItem key={index} item={item} />
 			))}
-		</View>
+		</BlurView>
 	);
 };
 

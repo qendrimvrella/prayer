@@ -13,7 +13,7 @@ export default function usePrayerTime() {
 	const [minutesTillPrayer, setMinutesTillPrayer] = useState(0);
 	const [paryer, setPrayer] = useState({
 		imsaku: '',
-		lindjaDjellit: '',
+		lindjaDiellit: '',
 		dreka: '',
 		ikindia: '',
 		akshami: '',
@@ -24,21 +24,21 @@ export default function usePrayerTime() {
 
 	useEffect(() => {
 		const newDate = new Date();
-		const currentDate = newDate.getTime();
+		// const currentDate = newDate.getTime();
 
 		const firstCharsOfNewDate = newDate.toISOString().substring(0, 11);
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
-		// const currentDate = new Date(
-		// 	`${firstCharsOfNewDate}03:02${lastCharsOfNewDate}`,
-		// ).getTime();
+		const currentDate = new Date(
+			`${firstCharsOfNewDate}03:02${lastCharsOfNewDate}`,
+		).getTime();
 
 		let imsaku = checkCityTime(
 			time[country].imsaku,
 			locations[country][city],
 		);
-		let lindjaDjellit = checkCityTime(
-			time[country].lindjaDjellit,
+		let lindjaDiellit = checkCityTime(
+			time[country].lindjaDiellit,
 			locations[country][city],
 		);
 		let dreka = checkCityTime(
@@ -60,7 +60,7 @@ export default function usePrayerTime() {
 
 		setPrayer({
 			imsaku,
-			lindjaDjellit,
+			lindjaDiellit,
 			dreka,
 			ikindia,
 			akshami,
@@ -70,8 +70,8 @@ export default function usePrayerTime() {
 		const imsakuTime = new Date(
 			`${firstCharsOfNewDate}${imsaku}${lastCharsOfNewDate}`,
 		).getTime();
-		const lindjaDjellitTime = new Date(
-			`${firstCharsOfNewDate}${lindjaDjellit}${lastCharsOfNewDate}`,
+		const lindjaDiellitTime = new Date(
+			`${firstCharsOfNewDate}${lindjaDiellit}${lastCharsOfNewDate}`,
 		).getTime();
 		const drekaTime = new Date(
 			`${firstCharsOfNewDate}${dreka}${lastCharsOfNewDate}`,
@@ -90,9 +90,9 @@ export default function usePrayerTime() {
 		if (imsakuTime >= currentDate) {
 			setActivePrayer('imsaku');
 			activeDiffPrayer = imsakuTime;
-		} else if (lindjaDjellitTime >= currentDate) {
-			setActivePrayer('lindjaDjellit');
-			activeDiffPrayer = lindjaDjellitTime;
+		} else if (lindjaDiellitTime >= currentDate) {
+			setActivePrayer('lindjaDiellit');
+			activeDiffPrayer = lindjaDiellitTime;
 		} else if (drekaTime >= currentDate) {
 			setActivePrayer('dreka');
 			activeDiffPrayer = drekaTime;
@@ -109,7 +109,7 @@ export default function usePrayerTime() {
 		const diffMs = activeDiffPrayer - currentDate;
 		setHoursTillPrayer(diffHrs(diffMs));
 		setMinutesTillPrayer(diffMins(diffMs));
-	}, [country]);
+	}, [country, city]);
 
 	return {
 		activePrayer,

@@ -1,5 +1,7 @@
+import { BlurView } from 'expo-blur';
 import React from 'react';
 import { View } from 'react-native';
+import fontWeights from '../constants/fontWeights';
 import Layout from '../constants/Layout';
 import Text from './Text';
 
@@ -16,12 +18,14 @@ const Times = ({ activeTime, items }: Props) => {
 	return (
 		<View>
 			{items.map((item, index) => (
-				<View
+				<BlurView
+					intensity={70}
 					key={index}
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
+						overflow: 'hidden',
 						width: Layout.window.width - 24 * 2,
 						height: 48,
 						paddingHorizontal: 16,
@@ -33,16 +37,18 @@ const Times = ({ activeTime, items }: Props) => {
 					<Text
 						style={{
 							color: '#fff',
+							fontSize: 16,
 						}}>
 						{item.name}
 					</Text>
 					<Text
 						style={{
 							color: '#fff',
+							fontSize: 16,
 						}}>
 						{item.time}
 					</Text>
-				</View>
+				</BlurView>
 			))}
 		</View>
 	);

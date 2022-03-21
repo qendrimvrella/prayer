@@ -2,7 +2,7 @@ const times: any = {
 	'01-01': {
 		Kosovë: {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
@@ -10,7 +10,7 @@ const times: any = {
 		},
 		Shqipëri: {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
@@ -18,7 +18,7 @@ const times: any = {
 		},
 		'Maqedoni Veriore': {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
@@ -29,7 +29,7 @@ const times: any = {
 	'01-02': {
 		Kosovë: {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:45',
 			ikindia: '14:06',
 			akshami: '16:21',
@@ -37,7 +37,7 @@ const times: any = {
 		},
 		Shqipëri: {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
@@ -45,7 +45,7 @@ const times: any = {
 		},
 		'Maqedoni Veriore': {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
@@ -53,10 +53,10 @@ const times: any = {
 		},
 		festaFetar: 'Viti i Ri 2022',
 	},
-	'03-14': {
+	'03-22': {
 		Kosovë: {
 			imsaku: '04:00',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:49',
 			ikindia: '15:08',
 			akshami: '17:48',
@@ -64,7 +64,7 @@ const times: any = {
 		},
 		Shqipëri: {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
@@ -72,7 +72,7 @@ const times: any = {
 		},
 		'Maqedoni Veriore': {
 			imsaku: '05:21',
-			lindjaDjellit: '07:03',
+			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',

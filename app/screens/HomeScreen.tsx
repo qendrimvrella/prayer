@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import NavBar from '../components/NavBar';
 import { RootTabScreenProps } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,6 +10,7 @@ import prayers from '../constants/prayers';
 import Layout from '../constants/Layout';
 import usePrayerTime from '../hooks/usePrayerTime';
 import LottieView from 'lottie-react-native';
+import { Video, AVPlaybackStatus } from 'expo-av';
 import Colors from '../constants/Colors';
 import { getFullDate } from '../helpers';
 const homeDate = getFullDate();
@@ -32,6 +33,26 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				prayers[activePrayer].firstColor,
 				prayers[activePrayer].secondColor,
 			]}>
+			{/* <Image
+				source={require('../assets/images/IMG_0987.png')}
+				style={{
+					position: 'absolute',
+					height: Layout.window.height,
+					width: Layout.window.width,
+				}}
+			/> */}
+			<Video
+				style={{
+					position: 'absolute',
+					height: Layout.window.height,
+					width: Layout.window.width,
+				}}
+				source={require('../assets/images/vid6.mp4')}
+				isLooping
+				resizeMode="cover"
+				shouldPlay={true}
+				// onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+			/>
 			{/* <LottieView
 				loop
 				autoPlay={true}
@@ -130,9 +151,9 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								time: paryer.imsaku,
 							},
 							{
-								key: 'lindjaDjellit',
-								name: 'Lindja Djellit',
-								time: paryer.lindjaDjellit,
+								key: 'lindjaDiellit',
+								name: 'Lindja Diellit',
+								time: paryer.lindjaDiellit,
 							},
 							{
 								key: 'dreka',
