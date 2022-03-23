@@ -24,14 +24,14 @@ export default function usePrayerTime() {
 
 	useEffect(() => {
 		const newDate = new Date();
-		// const currentDate = newDate.getTime();
+		const currentDate = newDate.getTime();
 
 		const firstCharsOfNewDate = newDate.toISOString().substring(0, 11);
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
-		const currentDate = new Date(
-			`${firstCharsOfNewDate}03:02${lastCharsOfNewDate}`,
-		).getTime();
+		// const currentDate = new Date(
+		// 	`${firstCharsOfNewDate}14:02${lastCharsOfNewDate}`,
+		// ).getTime();
 
 		let imsaku = checkCityTime(
 			time[country].imsaku,

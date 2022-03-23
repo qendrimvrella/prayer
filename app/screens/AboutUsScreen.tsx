@@ -11,28 +11,13 @@ export default function AboutUsScreen() {
 			<Text style={styles.title}>Reth nesh</Text>
 
 			<Text style={styles.sectionTitle}>Developers</Text>
-			<Text
-				style={{
-					marginBottom: 40,
-				}}>
-				Qëndrim Vrella
-			</Text>
+			<Text style={styles.sectionText}>Qëndrim Vrella</Text>
 
 			<Text style={styles.sectionTitle}>UI/UX Dizajner</Text>
-			<Text
-				style={{
-					marginBottom: 40,
-				}}>
-				Albesian Guri
-			</Text>
+			<Text style={styles.sectionText}>Albesian Guri</Text>
 
 			<Text style={styles.sectionTitle}>Kontakti</Text>
-			<Text
-				style={{
-					marginBottom: 40,
-				}}>
-				zgjohu@gmail.com
-			</Text>
+			<Text style={styles.sectionText}>zgjohu@gmail.com</Text>
 		</View>
 	);
 }
@@ -49,9 +34,12 @@ const styles = StyleSheet.create({
 		marginBottom: 40,
 	},
 	sectionTitle: {
-		color: Colors.primary,
-		fontSize: 16,
-		fontFamily: fontWeights[500],
+		fontSize: 18,
 		marginBottom: 8,
+	},
+	sectionText: {
+		marginBottom: 40,
+		fontSize: 16,
+		fontFamily: fontWeights[300],
 	},
 });

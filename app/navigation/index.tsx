@@ -12,8 +12,9 @@ import DatesScreen from '../screens/DatesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import { RootStackParamList } from '../types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ModalScreen from '../screens/ModalScreen';
+import BeforePrayerScreen from '../screens/BeforePrayerScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
+import PrayerNotificationScreen from '../screens/PrayerNotificationScreen';
 
 export default function Navigation({
 	colorScheme,
@@ -45,8 +46,15 @@ function RootNavigator() {
 					headerTintColor: '#000',
 					headerShown: false,
 				}}>
-				<Stack.Screen name="Modal" component={ModalScreen} />
+				<Stack.Screen
+					name="BeforePrayer"
+					component={BeforePrayerScreen}
+				/>
 				<Stack.Screen name="AboutUs" component={AboutUsScreen} />
+				<Stack.Screen
+					name="PrayerNotification"
+					component={PrayerNotificationScreen}
+				/>
 			</Stack.Group>
 		</Stack.Navigator>
 	);
@@ -65,21 +73,21 @@ function TabNavigator() {
 			<Tab.Screen
 				name="Home"
 				component={HomeScreen}
-				options={({ navigation }: any) => ({
+				options={() => ({
 					headerShown: false,
 				})}
 			/>
 			<Tab.Screen
 				name="Dates"
 				component={DatesScreen}
-				options={({ navigation }: any) => ({
+				options={() => ({
 					headerShown: false,
 				})}
 			/>
 			<Tab.Screen
 				name="Settings"
 				component={SettingsScreen}
-				options={({ navigation }: any) => ({
+				options={() => ({
 					headerShown: false,
 				})}
 			/>

@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, View, StyleSheet, Switch } from 'react-native';
 import Colors from '../constants/Colors';
+import fontWeights from '../constants/fontWeights';
 import locations from '../constants/locations';
 import useLocationHandler from '../hooks/useLocationHandler';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
@@ -18,6 +19,7 @@ const Settings = () => {
 	const [cityModalVisibility, setCityModalVisibility] = useState(false);
 	const { country, city, onCountryChange, onCityChange } =
 		useLocationHandler();
+	const [isNotificationActive, setIsNotificationActive] = useState(false);
 
 	return (
 		<>
@@ -25,22 +27,7 @@ const Settings = () => {
 				style={{
 					paddingHorizontal: 24,
 				}}>
-				<View
-					style={{
-						flexDirection: 'row',
-						alignItems: 'center',
-						marginBottom: 12,
-					}}>
-					<LocationIcon />
-					<Text
-						style={{
-							color: Colors.primary,
-							fontSize: 16,
-							marginLeft: 12,
-						}}>
-						Lokacioni
-					</Text>
-				</View>
+				<Text style={styles.settingTitle}>Lokacioni</Text>
 				<Pressable
 					onPress={() => setCountryModalVisibility(true)}
 					style={{
@@ -49,13 +36,8 @@ const Settings = () => {
 						alignItems: 'center',
 						paddingVertical: 8,
 					}}>
-					<Text>Shteti</Text>
-					<Text
-						style={{
-							color: '#A3A3A3',
-						}}>
-						{country}
-					</Text>
+					<Text style={styles.settingText}>Shteti</Text>
+					<Text style={styles.settingLocation}>{country}</Text>
 				</Pressable>
 
 				<Pressable
@@ -66,11 +48,8 @@ const Settings = () => {
 						alignItems: 'center',
 						paddingVertical: 8,
 					}}>
-					<Text>Qyteti</Text>
-					<Text
-						style={{
-							color: '#A3A3A3',
-						}}>
+					<Text style={styles.settingText}>Qyteti</Text>
+					<Text style={styles.settingLocation}>
 						{city != '' ? city : 'Zgjidhni'}
 					</Text>
 				</Pressable>
@@ -78,79 +57,81 @@ const Settings = () => {
 				<View
 					style={{
 						flexDirection: 'row',
+						justifyContent: 'space-between',
 						alignItems: 'center',
+						marginTop: 38,
 						marginBottom: 12,
-						marginTop: 16,
 					}}>
-					<NotificationIcon />
-					<Text
-						style={{
-							color: Colors.primary,
-							fontSize: 16,
-							marginLeft: 12,
-						}}>
-						Njoftimet
-					</Text>
+					<View>
+						<Text
+							style={{
+								fontSize: 18,
+								marginBottom: 5,
+							}}>
+							Njoftimet
+						</Text>
+						<Text
+							style={{
+								color: '#767676',
+								fontSize: 12,
+							}}>
+							Aktivizo të gjitha njoftimet
+						</Text>
+					</View>
+					<Switch
+						value={isNotificationActive}
+						onValueChange={(val) => setIsNotificationActive(val)}
+						trackColor={{ false: '#767577', true: Colors.primary }}
+					/>
 				</View>
 
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						paddingVertical: 8,
-					}}>
-					<Text>Aktivizo njoftimet</Text>
-					<CheckBox isActive={true} />
-				</View>
+				{isNotificationActive && (
+					<>
+						<Pressable
+							onPress={() => navigation.navigate('PrayerNotification')}
+							style={{
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								paddingRight: 5,
+								paddingVertical: 14,
+							}}>
+							<Text style={styles.settingText}>
+								Njoftimet për kohët
+							</Text>
+							<ArrowRightIcon />
+						</Pressable>
 
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						paddingVertical: 8,
-					}}>
-					<Text>Njoftimet me zë</Text>
-					<CheckBox isActive={false} />
-				</View>
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						paddingVertical: 8,
-					}}>
-					<Text>Vibrimi</Text>
-					<CheckBox isActive={true} />
-				</View>
-
-				<Pressable
-					onPress={() => navigation.navigate('Modal')}
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						paddingRight: 5,
-						paddingVertical: 8,
-					}}>
-					<Text>Para-njoftimet</Text>
-					<ArrowRightIcon />
-				</Pressable>
+						<Pressable
+							onPress={() => navigation.navigate('BeforePrayer')}
+							style={{
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								paddingRight: 5,
+								paddingVertical: 14,
+							}}>
+							<Text style={styles.settingText}>
+								Para-njoftimet
+							</Text>
+							<ArrowRightIcon />
+						</Pressable>
+					</>
+				)}
 
 				<Pressable
 					onPress={() => navigation.navigate('AboutUs')}
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',
-						marginTop: 16,
+						marginTop: 32,
 					}}>
 					<InfoIcon />
 					<Text
 						style={{
 							color: Colors.primary,
 							fontSize: 16,
-							marginLeft: 12,
+							marginLeft: 8,
 						}}>
 						Rreth nesh
 					</Text>
@@ -177,5 +158,27 @@ const Settings = () => {
 		</>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingTop: 80,
+		alignItems: 'center',
+		backgroundColor: Colors.primary,
+	},
+	settingTitle: {
+		fontSize: 18,
+		marginBottom: 12,
+	},
+	settingText: {
+		fontSize: 16,
+		fontFamily: fontWeights[300],
+	},
+	settingLocation: {
+		color: '#A3A3A3',
+		fontSize: 16,
+		fontFamily: fontWeights[300],
+	},
+});
 
 export default Settings;

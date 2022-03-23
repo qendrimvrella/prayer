@@ -41,7 +41,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 					width: Layout.window.width,
 				}}
 			/> */}
-			<Video
+			{/* <Video
 				style={{
 					position: 'absolute',
 					height: Layout.window.height,
@@ -52,7 +52,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				resizeMode="cover"
 				shouldPlay={true}
 				// onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-			/>
+			/> */}
 			{/* <LottieView
 				loop
 				autoPlay={true}
@@ -61,9 +61,9 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 					position: 'absolute',
 					marginTop: 30,
 					width: 200,
-					height: 200,
+					height: 200
 				}}
-				source={require('../lottie/sun.json')}
+				source={require('../lottie/sky.json')}
 			/> */}
 			<View
 				style={{

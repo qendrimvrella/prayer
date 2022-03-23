@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import fontWeights from '../constants/fontWeights';
 
-export default function ModalScreen() {
+export default function BeforePrayerScreen() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Para-njoftimet</Text>
@@ -15,7 +15,7 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-    paddingTop: 24,
+		paddingTop: 24,
 	},
 	title: {
 		fontSize: 24,
