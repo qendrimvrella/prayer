@@ -6,6 +6,7 @@ export const diffMins = (diffMs: number) =>
 
 export const getFullDate = () => {
 	const date = new Date();
+	console.log(date);
 
 	return `${
 		date.getDate().toString().length == 1
@@ -13,8 +14,8 @@ export const getFullDate = () => {
 			: date.getDate().toString()
 	}/${
 		date.getMonth().toString().length == 1
-			? '0' + date.getMonth()
-			: date.getMonth()
+			? '0' + (date.getMonth() + 1)
+			: date.getMonth() + 1
 	}/${date.getFullYear()}`;
 };
 

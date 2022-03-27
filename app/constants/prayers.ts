@@ -26,7 +26,7 @@ export default {
 	},
 	jacia: {
 		name: 'Jacia',
-		firstColor: '#275177',
-		secondColor: '#3372A7',
+		firstColor: '#1C2843',
+		secondColor: '#6A5863',
 	},
 };

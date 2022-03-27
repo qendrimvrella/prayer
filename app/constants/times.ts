@@ -53,14 +53,14 @@ const times: any = {
 		},
 		festaFetar: 'Viti i Ri 2022',
 	},
-	'03-23': {
+	'03-27': {
 		Kosovë: {
 			imsaku: '04:00',
 			lindjaDiellit: '07:03',
-			dreka: '11:49',
-			ikindia: '15:08',
-			akshami: '17:48',
-			jacia: '19:59',
+			dreka: '12:45',
+			ikindia: '16:15',
+			akshami: '19:04',
+			jacia: '20:36',
 		},
 		Shqipëri: {
 			imsaku: '05:21',

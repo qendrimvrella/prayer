@@ -19,8 +19,9 @@ const Times = ({ activeTime, items }: Props) => {
 		<View>
 			{items.map((item, index) => (
 				<BlurView
-					intensity={70}
+					intensity={50}
 					key={index}
+					tint={item.key === activeTime ? 'light' : 'default'}
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',

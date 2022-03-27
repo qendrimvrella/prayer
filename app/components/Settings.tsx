@@ -5,28 +5,24 @@ import Colors from '../constants/Colors';
 import fontWeights from '../constants/fontWeights';
 import locations from '../constants/locations';
 import useLocationHandler from '../hooks/useLocationHandler';
+import useSettingsHandler from '../hooks/useSettingsHandler';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import InfoIcon from '../icons/InfoIcon';
-import LocationIcon from '../icons/LocationIcon';
-import NotificationIcon from '../icons/NotificationIcon';
-import CheckBox from './CheckBox';
 import SelectModal from './SelectModal';
 import { Text } from './Themed';
 
 const Settings = () => {
 	const navigation = useNavigation();
-	const [countryModalVisibility, setCountryModalVisibility] = useState(false);
-	const [cityModalVisibility, setCityModalVisibility] = useState(false);
+	const { isNotificationActive, onNotificationClick } = useSettingsHandler();
 	const { country, city, onCountryChange, onCityChange } =
 		useLocationHandler();
-	const [isNotificationActive, setIsNotificationActive] = useState(false);
+
+	const [countryModalVisibility, setCountryModalVisibility] = useState(false);
+	const [cityModalVisibility, setCityModalVisibility] = useState(false);
 
 	return (
 		<>
-			<View
-				style={{
-					paddingHorizontal: 24,
-				}}>
+			<View style={styles.container}>
 				<Text style={styles.settingTitle}>Lokacioni</Text>
 				<Pressable
 					onPress={() => setCountryModalVisibility(true)}
@@ -80,7 +76,7 @@ const Settings = () => {
 					</View>
 					<Switch
 						value={isNotificationActive}
-						onValueChange={(val) => setIsNotificationActive(val)}
+						onValueChange={onNotificationClick}
 						trackColor={{ false: '#767577', true: Colors.primary }}
 					/>
 				</View>
@@ -88,7 +84,9 @@ const Settings = () => {
 				{isNotificationActive && (
 					<>
 						<Pressable
-							onPress={() => navigation.navigate('PrayerNotification')}
+							onPress={() =>
+								navigation.navigate('PrayerNotification')
+							}
 							style={{
 								flexDirection: 'row',
 								justifyContent: 'space-between',
@@ -161,10 +159,7 @@ const Settings = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		paddingTop: 80,
-		alignItems: 'center',
-		backgroundColor: Colors.primary,
+		paddingHorizontal: 24,
 	},
 	settingTitle: {
 		fontSize: 18,

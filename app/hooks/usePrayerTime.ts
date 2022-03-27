@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import allTimes from '../times';
+import allTimes from '../constants/times';
 import { checkCityTime, diffHrs, diffMins } from '../helpers';
 import { PrayesType } from '../types';
 import useLocationHandler from './useLocationHandler';
@@ -30,7 +30,7 @@ export default function usePrayerTime() {
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
 		// const currentDate = new Date(
-		// 	`${firstCharsOfNewDate}14:02${lastCharsOfNewDate}`,
+		// 	`${firstCharsOfNewDate}12:02${lastCharsOfNewDate}`,
 		// ).getTime();
 
 		let imsaku = checkCityTime(
