@@ -5,6 +5,7 @@ import Colors from '../constants/Colors';
 import fontWeights from '../constants/fontWeights';
 import locations from '../constants/locations';
 import useLocationHandler from '../hooks/useLocationHandler';
+import useNotification from '../hooks/useNotification';
 import useSettingsHandler from '../hooks/useSettingsHandler';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import InfoIcon from '../icons/InfoIcon';
@@ -13,6 +14,9 @@ import { Text } from './Themed';
 
 const Settings = () => {
 	const navigation = useNavigation();
+	const {
+		schedulePushNotification
+	} = useNotification();
 	const { isNotificationActive, onNotificationClick } = useSettingsHandler();
 	const { country, city, onCountryChange, onCityChange } =
 		useLocationHandler();
@@ -133,6 +137,15 @@ const Settings = () => {
 						}}>
 						Rreth nesh
 					</Text>
+				</Pressable>
+				<Pressable
+					onPress={() => schedulePushNotification()}
+					style={{
+						height: 100,
+						width: 100,
+						backgroundColor: '#fff',
+					}}>
+					<Text>Send a notification</Text>
 				</Pressable>
 			</View>
 			<SelectModal

@@ -10,7 +10,6 @@ import prayers from '../constants/prayers';
 import Layout from '../constants/Layout';
 import usePrayerTime from '../hooks/usePrayerTime';
 import LottieView from 'lottie-react-native';
-import { Video, AVPlaybackStatus } from 'expo-av';
 import Colors from '../constants/Colors';
 import { getFullDate } from '../helpers';
 const homeDate = getFullDate();
@@ -21,7 +20,6 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 		hoursTillPrayer,
 		minutesTillPrayer,
 		paryer,
-		festaFetar,
 		country,
 		city,
 	} = usePrayerTime();
@@ -65,74 +63,20 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				}}
 				source={require('../lottie/sky.json')}
 			/> */}
-			<View
-				style={{
-					justifyContent: 'space-between',
-					height: Layout.window.height - 190,
-				}}>
+			<View style={styles.wrapper}>
 				<View>
-					<Text
-						style={{
-							color: '#fff',
-							textAlign: 'center',
-							fontSize: 18,
-							fontFamily: fontWeights[300],
-						}}>
+					<Text style={styles.locationText}>
 						{country}, {city}
 					</Text>
-					<Text
-						style={{
-							color: '#fff',
-							textAlign: 'center',
-							fontSize: 16,
-							fontFamily: fontWeights[300],
-						}}>
-						{homeDate}
-					</Text>
-
-					{festaFetar != '' && (
-						<View
-							style={{
-								backgroundColor: '#759CDC22',
-								justifyContent: 'center',
-								alignItems: 'center',
-								width: Layout.window.width - 24 * 2,
-								height: 48,
-								paddingHorizontal: 16,
-								borderRadius: 8,
-								marginTop: 30,
-							}}>
-							<Text
-								style={{
-									color: '#fff',
-								}}>
-								{festaFetar}
-							</Text>
-						</View>
-					)}
+					<Text style={styles.dateText}>{homeDate}</Text>
 				</View>
 
 				<View>
-					<View
-						style={{
-							marginBottom: 40,
-						}}>
-						<Text
-							style={{
-								color: '#fff',
-								textAlign: 'center',
-								fontSize: 24,
-								fontFamily: fontWeights[300],
-							}}>
+					<View style={styles.prayerTimeCon}>
+						<Text style={styles.prayerTimeText}>
 							{prayers[activePrayer].name} {paryer[activePrayer]}
 						</Text>
-						<Text
-							style={{
-								color: '#fff',
-								textAlign: 'center',
-								fontSize: 56,
-								fontFamily: fontWeights[500],
-							}}>
+						<Text style={styles.prayerTimeSubText}>
 							{hoursTillPrayer > 0
 								? `${hoursTillPrayer}h `
 								: null}
@@ -191,5 +135,37 @@ const styles = StyleSheet.create({
 		paddingTop: 80,
 		alignItems: 'center',
 		backgroundColor: Colors.primary,
+	},
+	wrapper: {
+		justifyContent: 'space-between',
+		height: Layout.window.height - 190,
+	},
+	locationText: {
+		color: '#fff',
+		textAlign: 'center',
+		fontSize: 18,
+		fontFamily: fontWeights[300],
+		marginBottom: 8,
+	},
+	dateText: {
+		color: '#fff',
+		textAlign: 'center',
+		fontSize: 16,
+		fontFamily: fontWeights[300],
+	},
+	prayerTimeCon: {
+		marginBottom: 16,
+	},
+	prayerTimeText: {
+		color: '#fff',
+		textAlign: 'center',
+		fontSize: 24,
+		fontFamily: fontWeights[300],
+	},
+	prayerTimeSubText: {
+		color: '#fff',
+		textAlign: 'center',
+		fontSize: 56,
+		fontFamily: fontWeights[500],
 	},
 });

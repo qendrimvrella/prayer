@@ -2,7 +2,6 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
-import Colors from '../constants/Colors';
 import fontWeights from '../constants/fontWeights';
 
 export default function AboutUsScreen() {

@@ -1,79 +1,93 @@
 import * as React from 'react';
-import { StyleSheet, Switch } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import CustomSwitch from '../components/CustomSwitch';
 
 import { Text, View } from '../components/Themed';
-import Colors from '../constants/Colors';
 import fontWeights from '../constants/fontWeights';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Button from '../components/Button';
 
 export default function PrayerNotificationScreen() {
+	const [isLoading, setIsLoading] = useState(false);
+	const [times, setTimes] = useState({
+		sabahu: true,
+		dreka: true,
+		ikindia: true,
+		akshami: true,
+		jacia: true,
+	});
+
+	useEffect(() => {
+		(async () => {
+			const prayersAS = await AsyncStorage.getItem('prayerNotification');
+			if (prayersAS !== null) {
+				setTimes(JSON.parse(prayersAS));
+			}
+		})();
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Njoftimet për kohët</Text>
 
-			<View style={styles.item}>
-				<View>
-					<Text style={styles.itemTitle}>Sabahu</Text>
-					<Text style={styles.itemText}>
-						Aktivizo njoftimin e sabahut
-					</Text>
-				</View>
-				<Switch
-					value={false}
-					trackColor={{ false: '#767577', true: Colors.primary }}
-				/>
-			</View>
+			<CustomSwitch
+				title="Sabahu"
+				subTitle="Aktivizo njoftimin e sabahut"
+				value={times.sabahu}
+				onValueChange={(val) =>
+					setTimes((prev) => ({ ...prev, sabahu: val }))
+				}
+			/>
 
-			<View style={styles.item}>
-				<View>
-					<Text style={styles.itemTitle}>Dreka</Text>
-					<Text style={styles.itemText}>
-						Aktivizo njoftimin e drekës
-					</Text>
-				</View>
-				<Switch
-					value={false}
-					trackColor={{ false: '#767577', true: Colors.primary }}
-				/>
-			</View>
+			<CustomSwitch
+				title="Dreka"
+				subTitle="Aktivizo njoftimin e drekës"
+				value={times.dreka}
+				onValueChange={(val) =>
+					setTimes((prev) => ({ ...prev, dreka: val }))
+				}
+			/>
 
-			<View style={styles.item}>
-				<View>
-					<Text style={styles.itemTitle}>Ikindia</Text>
-					<Text style={styles.itemText}>
-						Aktivizo njoftimin e ikindia
-					</Text>
-				</View>
-				<Switch
-					value={false}
-					trackColor={{ false: '#767577', true: Colors.primary }}
-				/>
-			</View>
+			<CustomSwitch
+				title="Ikindia"
+				subTitle="Aktivizo njoftimin e ikindia"
+				value={times.ikindia}
+				onValueChange={(val) =>
+					setTimes((prev) => ({ ...prev, ikindia: val }))
+				}
+			/>
 
-			<View style={styles.item}>
-				<View>
-					<Text style={styles.itemTitle}>Akshami</Text>
-					<Text style={styles.itemText}>
-						Aktivizo njoftimin e akshami
-					</Text>
-				</View>
-				<Switch
-					value={false}
-					trackColor={{ false: '#767577', true: Colors.primary }}
-				/>
-			</View>
+			<CustomSwitch
+				title="Akshami"
+				subTitle="Aktivizo njoftimin e akshami"
+				value={times.akshami}
+				onValueChange={(val) =>
+					setTimes((prev) => ({ ...prev, akshami: val }))
+				}
+			/>
 
-			<View style={styles.item}>
-				<View>
-					<Text style={styles.itemTitle}>Jacia</Text>
-					<Text style={styles.itemText}>
-						Aktivizo njoftimin e jacia
-					</Text>
-				</View>
-				<Switch
-					value={false}
-					trackColor={{ false: '#767577', true: Colors.primary }}
-				/>
-			</View>
+			<CustomSwitch
+				title="Jacia"
+				subTitle="Aktivizo njoftimin e jacia"
+				value={times.jacia}
+				onValueChange={(val) =>
+					setTimes((prev) => ({ ...prev, jacia: val }))
+				}
+			/>
+
+			<Button
+				title="Ruaj"
+				isLoading={isLoading}
+				onPress={async () => {
+					setIsLoading(true);
+					await AsyncStorage.setItem(
+						'prayerNotification',
+						JSON.stringify(times),
+					);
+					setIsLoading(false);
+				}}
+			/>
 		</View>
 	);
 }
@@ -88,19 +102,5 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontFamily: fontWeights[500],
 		marginBottom: 40,
-	},
-	item: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		marginBottom: 24,
-	},
-	itemTitle: {
-		fontSize: 18,
-		marginBottom: 5,
-	},
-	itemText: {
-		color: '#767676',
-		fontSize: 12,
 	},
 });

@@ -6,7 +6,6 @@ export const diffMins = (diffMs: number) =>
 
 export const getFullDate = () => {
 	const date = new Date();
-	console.log(date);
 
 	return `${
 		date.getDate().toString().length == 1
@@ -21,25 +20,55 @@ export const getFullDate = () => {
 
 export const checkCityTime = (time: any, city: number) => {
 	if (city != 0) {
-		let imsakuArray = time.split(':');
-		const imsakuMinutes = parseInt(imsakuArray[1]) + city;
+		let timeArray = time.split(':');
+		const timeMinutes = parseInt(timeArray[1]) + city;
 
-		if (imsakuMinutes >= 60) {
-			imsakuArray = [parseInt(imsakuArray[0]) + 1, imsakuMinutes % 60];
-		} else if (imsakuMinutes < 0) {
-			imsakuArray = [parseInt(imsakuArray[0]) - 1, 60 + imsakuMinutes];
+		if (timeMinutes >= 60) {
+			timeArray = [parseInt(timeArray[0]) + 1, timeMinutes % 60];
+		} else if (timeMinutes < 0) {
+			timeArray = [parseInt(timeArray[0]) - 1, 60 + timeMinutes];
 		} else {
-			imsakuArray = [imsakuArray[0], imsakuMinutes];
+			timeArray = [timeArray[0], timeMinutes];
 		}
 
 		return `${
-			imsakuArray[0].toString().length == 1
-				? '0' + imsakuArray[0].toString()
-				: imsakuArray[0].toString()
+			timeArray[0].toString().length == 1
+				? '0' + timeArray[0].toString()
+				: timeArray[0].toString()
 		}:${
-			imsakuArray[1].toString().length == 1
-				? '0' + imsakuArray[1].toString()
-				: imsakuArray[1].toString()
+			timeArray[1].toString().length == 1
+				? '0' + timeArray[1].toString()
+				: timeArray[1].toString()
+		}`;
+	}
+	return time;
+};
+
+export const checkCityTimeAndAddMinutes = (
+	time: any,
+	city: number,
+	minutes: number,
+) => {
+	if (city != 0) {
+		let timeArray = time.split(':');
+		const timeMinutes = parseInt(timeArray[1]) + city + minutes;
+
+		if (timeMinutes >= 60) {
+			timeArray = [parseInt(timeArray[0]) + 1, timeMinutes % 60];
+		} else if (timeMinutes < 0) {
+			timeArray = [parseInt(timeArray[0]) - 1, 60 + timeMinutes];
+		} else {
+			timeArray = [timeArray[0], timeMinutes];
+		}
+
+		return `${
+			timeArray[0].toString().length == 1
+				? '0' + timeArray[0].toString()
+				: timeArray[0].toString()
+		}:${
+			timeArray[1].toString().length == 1
+				? '0' + timeArray[1].toString()
+				: timeArray[1].toString()
 		}`;
 	}
 	return time;

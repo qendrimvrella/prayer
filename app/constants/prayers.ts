@@ -1,32 +1,32 @@
 export default {
 	imsaku: {
 		name: 'Imsaku',
-		firstColor: '#516C96',
-		secondColor: '#8C8193',
+		firstColor: '#043347',
+		secondColor: '#5CA9CF',
 	},
-	lindjaDjellit: {
+	lindjaDiellit: {
 		name: 'Lindja e Diellit',
-		firstColor: '#516C96',
-		secondColor: '#8C8193',
+		firstColor: '#5CA9CF',
+		secondColor: '#BFBC76',
 	},
 	dreka: {
 		name: 'Dreka',
-		firstColor: '#FBD455',
-		secondColor: '#F8A732',
+		firstColor: '#A4ECFF',
+		secondColor: '#44C1E1',
 	},
 	ikindia: {
 		name: 'Ikindia',
-		firstColor: '#57CAFC',
-		secondColor: '#4EC6F9',
+		firstColor: '#44C1E2',
+		secondColor: '#FFC4AB',
 	},
 	akshami: {
 		name: 'Akshami',
-		firstColor: '#D54E3A',
-		secondColor: '#EF9E4D',
+		firstColor: '#EE8042',
+		secondColor: '#F5C76D',
 	},
 	jacia: {
 		name: 'Jacia',
-		firstColor: '#1C2843',
-		secondColor: '#6A5863',
+		firstColor: '#193551',
+		secondColor: '#0D1B26',
 	},
 };

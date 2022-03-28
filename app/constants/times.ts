@@ -24,7 +24,6 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		festaFetar: 'Viti i Ri 2022',
 	},
 	'01-02': {
 		Kosovë: {
@@ -51,11 +50,10 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		festaFetar: 'Viti i Ri 2022',
 	},
-	'03-27': {
+	'03-28': {
 		Kosovë: {
-			imsaku: '04:00',
+			imsaku: '04:33',
 			lindjaDiellit: '07:03',
 			dreka: '12:45',
 			ikindia: '16:15',
@@ -78,7 +76,6 @@ const times: any = {
 			akshami: '16:21',
 			jacia: '18:00',
 		},
-		festaFetar: '',
 	},
 };
 

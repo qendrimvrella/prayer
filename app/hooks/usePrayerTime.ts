@@ -19,7 +19,6 @@ export default function usePrayerTime() {
 		akshami: '',
 		jacia: '',
 	});
-	const festaFetar = allTimes[formatedDate].festaFetar;
 	const time = allTimes[formatedDate];
 
 	useEffect(() => {
@@ -30,9 +29,9 @@ export default function usePrayerTime() {
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
 		// const currentDate = new Date(
-		// 	`${firstCharsOfNewDate}12:02${lastCharsOfNewDate}`,
+		// 	`${firstCharsOfNewDate}14:02${lastCharsOfNewDate}`,
 		// ).getTime();
-
+		
 		let imsaku = checkCityTime(
 			time[country].imsaku,
 			locations[country][city],
@@ -118,6 +117,5 @@ export default function usePrayerTime() {
 		country,
 		city,
 		paryer,
-		festaFetar,
 	} as const;
 }
