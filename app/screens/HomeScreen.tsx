@@ -1,18 +1,61 @@
 import * as React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import NavBar from '../components/NavBar';
 import { RootTabScreenProps } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
 import Text from '../components/Text';
 import fontWeights from '../constants/fontWeights';
 import Times from '../components/Times';
-import prayers from '../constants/prayers';
 import Layout from '../constants/Layout';
 import usePrayerTime from '../hooks/usePrayerTime';
-import LottieView from 'lottie-react-native';
 import Colors from '../constants/Colors';
 import { getFullDate } from '../helpers';
+import Jacia from '../icons/Jacia';
+import Akshami from '../icons/Akshami';
+import Ikindia from '../icons/Ikindia';
+import Dreka from '../icons/Dreka';
+import LindjaDiellit from '../icons/LindjaDiellit';
+import Imsaku from '../icons/Imsaku';
 const homeDate = getFullDate();
+
+const prayers = {
+	imsaku: {
+		name: 'Imsaku',
+		firstColor: '#043347',
+		secondColor: '#5CA9CF',
+		icon: () => <Imsaku />,
+	},
+	lindjaDiellit: {
+		name: 'Lindja e Diellit',
+		firstColor: '#5CA9CF',
+		secondColor: '#BFBC76',
+		icon: () => <LindjaDiellit />,
+	},
+	dreka: {
+		name: 'Dreka',
+		firstColor: '#A4ECFF',
+		secondColor: '#44C1E1',
+		icon: () => <Dreka />,
+	},
+	ikindia: {
+		name: 'Ikindia',
+		firstColor: '#44C1E2',
+		secondColor: '#FFC4AB',
+		icon: () => <Ikindia />,
+	},
+	akshami: {
+		name: 'Akshami',
+		firstColor: '#EE8042',
+		secondColor: '#F5C76D',
+		icon: () => <Akshami />,
+	},
+	jacia: {
+		name: 'Jacia',
+		firstColor: '#193551',
+		secondColor: '#0D1B26',
+		icon: () => <Jacia />,
+	},
+};
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 	const {
@@ -31,38 +74,12 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				prayers[activePrayer].firstColor,
 				prayers[activePrayer].secondColor,
 			]}>
-			{/* <Image
-				source={require('../assets/images/IMG_0987.png')}
+			<View
 				style={{
 					position: 'absolute',
-					height: Layout.window.height,
-					width: Layout.window.width,
-				}}
-			/> */}
-			{/* <Video
-				style={{
-					position: 'absolute',
-					height: Layout.window.height,
-					width: Layout.window.width,
-				}}
-				source={require('../assets/images/vid6.mp4')}
-				isLooping
-				resizeMode="cover"
-				shouldPlay={true}
-				// onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-			/> */}
-			{/* <LottieView
-				loop
-				autoPlay={true}
-				speed={0.4}
-				style={{
-					position: 'absolute',
-					marginTop: 30,
-					width: 200,
-					height: 200
-				}}
-				source={require('../lottie/sky.json')}
-			/> */}
+				}}>
+				{prayers[activePrayer].icon()}
+			</View>
 			<View style={styles.wrapper}>
 				<View>
 					<Text style={styles.locationText}>
@@ -132,13 +149,13 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 80,
+		paddingTop: 65,
 		alignItems: 'center',
 		backgroundColor: Colors.primary,
 	},
 	wrapper: {
 		justifyContent: 'space-between',
-		height: Layout.window.height - 190,
+		height: Layout.window.height - 165,
 	},
 	locationText: {
 		color: '#fff',

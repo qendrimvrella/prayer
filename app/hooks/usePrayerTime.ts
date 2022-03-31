@@ -29,9 +29,9 @@ export default function usePrayerTime() {
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
 		// const currentDate = new Date(
-		// 	`${firstCharsOfNewDate}14:02${lastCharsOfNewDate}`,
+		// 	`${firstCharsOfNewDate}05:02${lastCharsOfNewDate}`,
 		// ).getTime();
-		
+
 		let imsaku = checkCityTime(
 			time[country].imsaku,
 			locations[country][city],

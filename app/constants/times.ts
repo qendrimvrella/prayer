@@ -51,7 +51,7 @@ const times: any = {
 			jacia: '18:00',
 		},
 	},
-	'03-28': {
+	'03-31': {
 		Kosovë: {
 			imsaku: '04:33',
 			lindjaDiellit: '07:03',

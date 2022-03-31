@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginBottom: 24,
+		paddingVertical: 12,
 	},
 	itemTitle: {
 		fontSize: 18,

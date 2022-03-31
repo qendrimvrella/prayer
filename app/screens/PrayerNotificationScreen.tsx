@@ -2,13 +2,15 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import CustomSwitch from '../components/CustomSwitch';
-
 import { Text, View } from '../components/Themed';
 import fontWeights from '../constants/fontWeights';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/Button';
+import { RootStackScreenProps } from '../types';
 
-export default function PrayerNotificationScreen() {
+export default function PrayerNotificationScreen({
+	navigation,
+}: RootStackScreenProps<'PrayerNotification'>) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [times, setTimes] = useState({
 		sabahu: true,
@@ -86,6 +88,7 @@ export default function PrayerNotificationScreen() {
 						JSON.stringify(times),
 					);
 					setIsLoading(false);
+					navigation.goBack();
 				}}
 			/>
 		</View>
