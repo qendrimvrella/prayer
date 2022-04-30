@@ -4,6 +4,7 @@ import { checkCityTime, diffHrs, diffMins } from '../helpers';
 import { PrayesType } from '../types';
 import useLocationHandler from './useLocationHandler';
 import locations from '../constants/locations';
+import { HOURS_ADD } from '../constants/general';
 const formatedDate = new Date().toISOString().substring(5, 10);
 
 export default function usePrayerTime() {
@@ -23,13 +24,13 @@ export default function usePrayerTime() {
 
 	useEffect(() => {
 		const newDate = new Date();
-		const currentDate = newDate.getTime();
+		const currentDate = newDate.getTime() + HOURS_ADD;
 
 		const firstCharsOfNewDate = newDate.toISOString().substring(0, 11);
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
 
 		// const currentDate = new Date(
-		// 	`${firstCharsOfNewDate}05:02${lastCharsOfNewDate}`,
+		// 	`${firstCharsOfNewDate}04:04${lastCharsOfNewDate}`,
 		// ).getTime();
 
 		let imsaku = checkCityTime(

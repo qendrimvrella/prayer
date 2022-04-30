@@ -5,7 +5,7 @@ import { checkCityTime, checkCityTimeAndAddMinutes } from '../helpers';
 import locations from '../constants/locations';
 
 export default function useNotification() {
-	// scheduleAllPrayersNotification();
+	scheduleAllPrayersNotification();
 	return {
 		schedulePushNotification,
 		requestPermissionsAsync,
@@ -24,18 +24,40 @@ async function scheduleAllPrayersNotification() {
 		akshami: true,
 		jacia: true,
 	};
-	const countryName = await AsyncStorage.getItem('country');
-	if (countryName !== null) {
-		country = countryName;
-	}
+	let beforePrayerNotification = {
+		sabahu: 0,
+		dreka: 0,
+		ikindia: 0,
+		akshami: 0,
+		jacia: 0,
+	};
+	// const countryName = await AsyncStorage.getItem('country');
+	// if (countryName !== null) {
+	// 	country = countryName;
+	// }
 	const cityName = await AsyncStorage.getItem('city');
 	if (cityName !== null) {
 		city = cityName;
 	}
 
-	let prayersAS = await AsyncStorage.getItem('prayerNotification');
+	const prayersAS = await AsyncStorage.getItem('prayerNotification');
 	if (prayersAS !== null) {
 		timesForNotification = JSON.parse(prayersAS);
+	}
+	const beforeNotificationAS = await AsyncStorage.getItem(
+		'isBeforePrayerNotificationActive',
+	);
+	if (beforeNotificationAS !== null) {
+		if (JSON.parse(beforeNotificationAS)) {
+			const beforePrayerNotificationAS = await AsyncStorage.getItem(
+				'beforePrayerNotification',
+			);
+			if (beforePrayerNotificationAS !== null) {
+				beforePrayerNotification = JSON.parse(
+					beforePrayerNotificationAS,
+				);
+			}
+		}
 	}
 
 	Object.keys(times).map((key) => {
@@ -43,47 +65,49 @@ async function scheduleAllPrayersNotification() {
 			let sabahu = checkCityTimeAndAddMinutes(
 				times[key][country].imsaku,
 				locations[country][city],
-				30,
+				30 - beforePrayerNotification.sabahu,
 			);
+			// Notifications.scheduleNotificationAsync({
+			// 	content: {
+			// 		title: 'Sabahu',
+			// 		body: 'Koha e namzit te Sabahut',
+			// 	},
+			// 	trigger: new Date(),
+			// });
 		}
 
 		if (timesForNotification.dreka) {
-			let dreka = checkCityTime(
+			let dreka = checkCityTimeAndAddMinutes(
 				times[key][country].dreka,
 				locations[country][city],
+				-beforePrayerNotification.dreka,
 			);
 		}
 
 		if (timesForNotification.ikindia) {
-			let ikindia = checkCityTime(
+			let ikindia = checkCityTimeAndAddMinutes(
 				times[key][country].ikindia,
 				locations[country][city],
+				-beforePrayerNotification.ikindia,
 			);
 		}
 
 		if (timesForNotification.akshami) {
-			let akshami = checkCityTime(
+			let akshami = checkCityTimeAndAddMinutes(
 				times[key][country].akshami,
 				locations[country][city],
+				-beforePrayerNotification.akshami,
 			);
 		}
 
 		if (timesForNotification.jacia) {
-			let jacia = checkCityTime(
+			let jacia = checkCityTimeAndAddMinutes(
 				times[key][country].jacia,
 				locations[country][city],
+				-beforePrayerNotification.jacia,
 			);
 		}
 	});
-
-	// await Notifications.scheduleNotificationAsync({
-	// 	content: {
-	// 		title: 'Dreka',
-	// 		body: 'Koha e namzit te Drekes',
-	// 	},
-
-	// 	trigger: { seconds: 3 },
-	// });
 }
 
 async function schedulePushNotification() {

@@ -51,12 +51,12 @@ const times: any = {
 			jacia: '18:00',
 		},
 	},
-	'03-31': {
+	'04-30': {
 		Kosovë: {
 			imsaku: '04:33',
 			lindjaDiellit: '07:03',
-			dreka: '12:45',
-			ikindia: '16:15',
+			dreka: '12:40',
+			ikindia: '16:22',
 			akshami: '19:04',
 			jacia: '20:36',
 		},

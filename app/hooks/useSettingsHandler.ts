@@ -17,6 +17,7 @@ export default function useSettingsHandler() {
 			requestPermissionsAsync();
 			cancelAllScheduledNotificationsAsync();
 		} else {
+			cancelAllScheduledNotificationsAsync();
 			Linking.openSettings();
 		}
 	};

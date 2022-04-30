@@ -49,27 +49,24 @@ export const checkCityTimeAndAddMinutes = (
 	city: number,
 	minutes: number,
 ) => {
-	if (city != 0) {
-		let timeArray = time.split(':');
-		const timeMinutes = parseInt(timeArray[1]) + city + minutes;
+	let timeArray = time.split(':');
+	const timeMinutes = parseInt(timeArray[1]) + city + minutes;
 
-		if (timeMinutes >= 60) {
-			timeArray = [parseInt(timeArray[0]) + 1, timeMinutes % 60];
-		} else if (timeMinutes < 0) {
-			timeArray = [parseInt(timeArray[0]) - 1, 60 + timeMinutes];
-		} else {
-			timeArray = [timeArray[0], timeMinutes];
-		}
-
-		return `${
-			timeArray[0].toString().length == 1
-				? '0' + timeArray[0].toString()
-				: timeArray[0].toString()
-		}:${
-			timeArray[1].toString().length == 1
-				? '0' + timeArray[1].toString()
-				: timeArray[1].toString()
-		}`;
+	if (timeMinutes >= 60) {
+		timeArray = [parseInt(timeArray[0]) + 1, timeMinutes % 60];
+	} else if (timeMinutes < 0) {
+		timeArray = [parseInt(timeArray[0]) - 1, 60 + timeMinutes];
+	} else {
+		timeArray = [timeArray[0], timeMinutes];
 	}
-	return time;
+
+	return `${
+		timeArray[0].toString().length == 1
+			? '0' + timeArray[0].toString()
+			: timeArray[0].toString()
+	}:${
+		timeArray[1].toString().length == 1
+			? '0' + timeArray[1].toString()
+			: timeArray[1].toString()
+	}`;
 };

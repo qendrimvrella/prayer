@@ -28,7 +28,7 @@ const prayers = {
 	lindjaDiellit: {
 		name: 'Lindja e Diellit',
 		firstColor: '#5CA9CF',
-		secondColor: '#BFBC76',
+		secondColor: '#FFCC6A',
 		icon: () => <LindjaDiellit />,
 	},
 	dreka: {

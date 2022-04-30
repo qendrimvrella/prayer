@@ -76,6 +76,9 @@ export default function PrayerNotificationScreen({
 				onValueChange={(val) =>
 					setTimes((prev) => ({ ...prev, jacia: val }))
 				}
+				style={{
+					marginBottom: 36
+				}}
 			/>
 
 			<Button

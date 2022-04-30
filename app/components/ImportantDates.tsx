@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import Layout from '../constants/Layout';
+import Colors from '../constants/Colors';
 import Text from './Text';
 
 const DATES = [
@@ -36,26 +36,26 @@ const ImportantDates = () => {
 				<View
 					key={index}
 					style={{
-						width: Layout.window.width - 24 * 2,
-						height: 48,
+						height: 52,
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
 						paddingHorizontal: 16,
 						borderRadius: 8,
-						borderWidth: 1,
-						borderColor: '#759CDC',
+						backgroundColor: '#B3B2EF33',
 						marginBottom: 8,
 					}}>
 					<Text
 						style={{
-							color: '#759CDC',
+							color: Colors.primary,
+							fontSize: 16,
 						}}>
 						{item.name}
 					</Text>
 					<Text
 						style={{
-							color: '#759CDC',
+							color: Colors.primary,
+							fontSize: 16,
 						}}>
 						{item.date}
 					</Text>

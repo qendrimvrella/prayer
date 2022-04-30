@@ -3,9 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function useLocationHandler() {
-	const [country, setCountry] = useState<
-		'Kosovë' | 'Shqipëri' | 'Maqedoni Veriore'
-	>('Kosovë');
+	const [country, setCountry] = useState<'Kosovë'>('Kosovë');
 	const [city, setCity] = useState('Prishtinë');
 
 	const onCountryChange = useCallback(
