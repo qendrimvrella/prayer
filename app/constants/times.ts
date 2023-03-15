@@ -1,12 +1,12 @@
 const times: any = {
-	'01-01': {
+	'03-15': {
 		Kosovë: {
 			imsaku: '05:21',
 			lindjaDiellit: '07:03',
 			dreka: '11:44',
 			ikindia: '14:05',
 			akshami: '16:21',
-			jacia: '18:00',
+			jacia: '22:06',
 		},
 		Shqipëri: {
 			imsaku: '05:21',
