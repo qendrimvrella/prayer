@@ -1,5 +1,5 @@
 const times: any = {
-	'03-15': {
+	'10-17': {
 		Kosovë: {
 			imsaku: '05:21',
 			lindjaDiellit: '07:03',

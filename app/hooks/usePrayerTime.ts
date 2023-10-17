@@ -24,7 +24,7 @@ export default function usePrayerTime() {
 
 	useEffect(() => {
 		const newDate = new Date();
-		const currentDate = newDate.getTime() + HOURS_ADD;
+		const currentDate = newDate.getTime();
 
 		const firstCharsOfNewDate = newDate.toISOString().substring(0, 11);
 		const lastCharsOfNewDate = newDate.toISOString().substring(16);
