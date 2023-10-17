@@ -30,22 +30,23 @@ const Times = ({ activeTime, items }: Props) => {
 						width: Layout.window.width - 24 * 2,
 						height: 48,
 						paddingHorizontal: 16,
-						backgroundColor:
-							item.key === activeTime ? '#ffffff55' : '#ffffff22',
+						// backgroundColor:
+						// 	item.key === activeTime ? '#ffffff55' : '#ffffff22',
 						borderRadius: 8,
 						marginBottom: 8,
 					}}>
 					<Text
 						style={{
 							color: '#fff',
-							fontSize: 16,
+							fontSize: 18,
 						}}>
 						{item.name}
 					</Text>
 					<Text
 						style={{
 							color: '#fff',
-							fontSize: 16,
+							fontSize: 18,
+							fontFamily: fontWeights[500],
 						}}>
 						{item.time}
 					</Text>

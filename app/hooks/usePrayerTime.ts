@@ -24,11 +24,6 @@ export default function usePrayerTime() {
 		const now = dayjs();
 		const date = now.format('YYYY-MM-DD');
 		const currentDateInMs = now.valueOf();
-
-		// const currentDate = new Date(
-		// 	`${firstCharsOfNewDate}04:04${lastCharsOfNewDate}`,
-		// ).getTime();
-
 		const imsakuTime = dayjs(`${date} ${time.imsaku}`).valueOf();
 		const lindjaDiellitTime = dayjs(
 			`${date} ${time.lindjaDiellit}`,

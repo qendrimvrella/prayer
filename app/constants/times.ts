@@ -1,11 +1,11 @@
 const times: any = {
 	'10-17': {
-		imsaku: '05:21',
-		lindjaDiellit: '07:03',
-		dreka: '11:44',
-		ikindia: '14:05',
-		akshami: '15:56',
-		jacia: '22:06',
+		imsaku: '05:12',
+		lindjaDiellit: '06:43',
+		dreka: '12:25',
+		ikindia: '15:31',
+		akshami: '17:59',
+		jacia: '19:29',
 	},
 	'01-02': {
 		imsaku: '05:21',

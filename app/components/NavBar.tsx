@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
 import CalendarIcon from '../icons/CalendarIcon';
 import ClockIcon from '../icons/ClockIcon';
 import NavItem from './NavItem';
@@ -26,14 +25,14 @@ const NavBar = ({ activeRoute }: Props) => {
 					}
 				/>
 			),
-			onPress: () => navigation.navigate('Dates'),
+			onPress: () => navigation.navigate('Root', { screen: 'Dates' }),
 		},
 		{
 			isActive: activeRoute === 'Home',
 			activeBgColor: '#ffffff99',
 			icon: () => <ClockIcon />,
 			iconColor: '#759CDC',
-			onPress: () => navigation.navigate('Home'),
+			onPress: () => navigation.navigate('Root', { screen: 'Home' }),
 		},
 		{
 			isActive: activeRoute === 'Settings',
@@ -47,7 +46,7 @@ const NavBar = ({ activeRoute }: Props) => {
 					}
 				/>
 			),
-			onPress: () => navigation.navigate('Settings'),
+			onPress: () => navigation.navigate('Root', { screen: 'Settings' }),
 		},
 	];
 
