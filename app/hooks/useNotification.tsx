@@ -1,8 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import times from '../constants/times';
-import { checkCityTime, checkCityTimeAndAddMinutes } from '../helpers';
-import locations from '../constants/locations';
+import { subtractMinutes } from '../helpers';
 
 export default function useNotification() {
 	scheduleAllPrayersNotification();
@@ -15,8 +14,6 @@ export default function useNotification() {
 }
 
 async function scheduleAllPrayersNotification() {
-	let country = 'Kosovë';
-	let city = 'Prishtinë';
 	let timesForNotification = {
 		sabahu: true,
 		dreka: true,
@@ -31,14 +28,6 @@ async function scheduleAllPrayersNotification() {
 		akshami: 0,
 		jacia: 0,
 	};
-	// const countryName = await AsyncStorage.getItem('country');
-	// if (countryName !== null) {
-	// 	country = countryName;
-	// }
-	const cityName = await AsyncStorage.getItem('city');
-	if (cityName !== null) {
-		city = cityName;
-	}
 
 	const prayersAS = await AsyncStorage.getItem('prayerNotification');
 	if (prayersAS !== null) {
@@ -62,10 +51,10 @@ async function scheduleAllPrayersNotification() {
 
 	Object.keys(times).map((key) => {
 		if (timesForNotification.sabahu) {
-			let sabahu = checkCityTimeAndAddMinutes(
-				times[key][country].imsaku,
-				locations[country][city],
-				30 - beforePrayerNotification.sabahu,
+			let sabahu = subtractMinutes(
+				key,
+				times[key].imsaku,
+				beforePrayerNotification.sabahu,
 			);
 			// Notifications.scheduleNotificationAsync({
 			// 	content: {
@@ -77,34 +66,34 @@ async function scheduleAllPrayersNotification() {
 		}
 
 		if (timesForNotification.dreka) {
-			let dreka = checkCityTimeAndAddMinutes(
-				times[key][country].dreka,
-				locations[country][city],
-				-beforePrayerNotification.dreka,
+			let dreka = subtractMinutes(
+				key,
+				times[key].dreka,
+				beforePrayerNotification.dreka,
 			);
 		}
 
 		if (timesForNotification.ikindia) {
-			let ikindia = checkCityTimeAndAddMinutes(
-				times[key][country].ikindia,
-				locations[country][city],
-				-beforePrayerNotification.ikindia,
+			let ikindia = subtractMinutes(
+				key,
+				times[key].ikindia,
+				beforePrayerNotification.ikindia,
 			);
 		}
 
 		if (timesForNotification.akshami) {
-			let akshami = checkCityTimeAndAddMinutes(
-				times[key][country].akshami,
-				locations[country][city],
-				-beforePrayerNotification.akshami,
+			let akshami = subtractMinutes(
+				key,
+				times[key].akshami,
+				beforePrayerNotification.akshami,
 			);
 		}
 
 		if (timesForNotification.jacia) {
-			let jacia = checkCityTimeAndAddMinutes(
-				times[key][country].jacia,
-				locations[country][city],
-				-beforePrayerNotification.jacia,
+			let jacia = subtractMinutes(
+				key,
+				times[key].jacia,
+				beforePrayerNotification.jacia,
 			);
 		}
 	});

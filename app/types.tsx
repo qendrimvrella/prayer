@@ -39,4 +39,12 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 		NativeStackScreenProps<RootStackParamList>
 	>;
 
-export type PrayesType = 'imsaku' | 'lindjaDiellit' | 'dreka' | 'ikindia' | 'akshami' | 'jacia';
+export type PrayesType =
+	| 'imsaku'
+	| 'lindjaDiellit'
+	| 'dreka'
+	| 'ikindia'
+	| 'akshami'
+	| 'jacia';
+
+export type LocaitonsType = 'Kosovë' | 'Shqipëri' | 'Maqedoni Veriore';

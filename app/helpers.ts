@@ -1,21 +1,9 @@
-export const diffHrs = (diffMs: number) =>
-	Math.floor((diffMs % 86400000) / 3600000);
-
-export const diffMins = (diffMs: number) =>
-	Math.round(((diffMs % 86400000) % 3600000) / 60000);
+import dayjs from 'dayjs';
 
 export const getFullDate = () => {
-	const date = new Date();
+	const now = dayjs();
 
-	return `${
-		date.getDate().toString().length == 1
-			? '0' + date.getDate().toString()
-			: date.getDate().toString()
-	}/${
-		date.getMonth().toString().length == 1
-			? '0' + (date.getMonth() + 1)
-			: date.getMonth() + 1
-	}/${date.getFullYear()}`;
+	return now.format('DD/MM/YYYY');
 };
 
 export const checkCityTime = (time: any, city: number) => {
@@ -44,13 +32,9 @@ export const checkCityTime = (time: any, city: number) => {
 	return time;
 };
 
-export const checkCityTimeAndAddMinutes = (
-	time: any,
-	city: number,
-	minutes: number,
-) => {
+export const checkCityTimeAndAddMinutes = (time: any, minutes: number) => {
 	let timeArray = time.split(':');
-	const timeMinutes = parseInt(timeArray[1]) + city + minutes;
+	const timeMinutes = parseInt(timeArray[1]) + minutes;
 
 	if (timeMinutes >= 60) {
 		timeArray = [parseInt(timeArray[0]) + 1, timeMinutes % 60];
@@ -69,4 +53,15 @@ export const checkCityTimeAndAddMinutes = (
 			? '0' + timeArray[1].toString()
 			: timeArray[1].toString()
 	}`;
+};
+
+export const subtractMinutes = (
+	date: string,
+	time: string,
+	subMins: number,
+) => {
+	const now = dayjs();
+	const currentYear = now.year();
+
+	return dayjs(`${currentYear}-${date} ${time}`).subtract(subMins, 'm');
 };

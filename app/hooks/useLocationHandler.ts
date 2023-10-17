@@ -7,7 +7,7 @@ export default function useLocationHandler() {
 	const [city, setCity] = useState('Prishtinë');
 
 	const onCountryChange = useCallback(
-		async (name) => {
+		async (name: any) => {
 			try {
 				await AsyncStorage.setItem('country', name);
 				await AsyncStorage.setItem('city', '');
@@ -28,7 +28,7 @@ export default function useLocationHandler() {
 	);
 
 	const onCityChange = useCallback(
-		async (name) => {
+		async (name: string) => {
 			try {
 				await AsyncStorage.setItem('city', name);
 				setCity(name);
@@ -39,7 +39,7 @@ export default function useLocationHandler() {
 
 	const getItems = async () => {
 		try {
-			const countryName = await AsyncStorage.getItem('country');
+			const countryName: any = await AsyncStorage.getItem('country');
 			if (countryName !== null) {
 				setCountry(countryName);
 			}

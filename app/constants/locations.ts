@@ -33,4 +33,4 @@ export default {
 	// 	Ohri: 0,
 	// 	Kërçova: 0,
 	// },
-};
+} as const;

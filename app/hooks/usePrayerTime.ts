@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import allTimes from '../constants/times';
-import { checkCityTime, diffHrs, diffMins } from '../helpers';
 import { PrayesType } from '../types';
 import useLocationHandler from './useLocationHandler';
-import locations from '../constants/locations';
-import { HOURS_ADD } from '../constants/general';
-const formatedDate = new Date().toISOString().substring(5, 10);
+import dayjs from 'dayjs';
 
 export default function usePrayerTime() {
 	const { country, city } = useLocationHandler();
@@ -20,96 +17,78 @@ export default function usePrayerTime() {
 		akshami: '',
 		jacia: '',
 	});
-	const time = allTimes[formatedDate];
+	const formatedDate = dayjs().format('MM-DD');
+	const time = formatedDate in allTimes ? allTimes[formatedDate] : undefined;
 
-	useEffect(() => {
-		const newDate = new Date();
-		const currentDate = newDate.getTime();
-
-		const firstCharsOfNewDate = newDate.toISOString().substring(0, 11);
-		const lastCharsOfNewDate = newDate.toISOString().substring(16);
+	const handleActiveTime = () => {
+		const now = dayjs();
+		const date = now.format('YYYY-MM-DD');
+		const currentDateInMs = now.valueOf();
 
 		// const currentDate = new Date(
 		// 	`${firstCharsOfNewDate}04:04${lastCharsOfNewDate}`,
 		// ).getTime();
 
-		let imsaku = checkCityTime(
-			time[country].imsaku,
-			locations[country][city],
-		);
-		let lindjaDiellit = checkCityTime(
-			time[country].lindjaDiellit,
-			locations[country][city],
-		);
-		let dreka = checkCityTime(
-			time[country].dreka,
-			locations[country][city],
-		);
-		let ikindia = checkCityTime(
-			time[country].ikindia,
-			locations[country][city],
-		);
-		let akshami = checkCityTime(
-			time[country].akshami,
-			locations[country][city],
-		);
-		let jacia = checkCityTime(
-			time[country].jacia,
-			locations[country][city],
-		);
+		const imsakuTime = dayjs(`${date} ${time.imsaku}`).valueOf();
+		const lindjaDiellitTime = dayjs(
+			`${date} ${time.lindjaDiellit}`,
+		).valueOf();
+		const drekaTime = dayjs(`${date} ${time.dreka}`).valueOf();
+		const ikindiaTime = dayjs(`${date} ${time.ikindia}`).valueOf();
+		const akshamiTime = dayjs(`${date} ${time.akshami}`).valueOf();
+		const jaciaTime = dayjs(`${date} ${time.jacia}`).valueOf();
 
-		setPrayer({
-			imsaku,
-			lindjaDiellit,
-			dreka,
-			ikindia,
-			akshami,
-			jacia,
-		});
-
-		const imsakuTime = new Date(
-			`${firstCharsOfNewDate}${imsaku}${lastCharsOfNewDate}`,
-		).getTime();
-		const lindjaDiellitTime = new Date(
-			`${firstCharsOfNewDate}${lindjaDiellit}${lastCharsOfNewDate}`,
-		).getTime();
-		const drekaTime = new Date(
-			`${firstCharsOfNewDate}${dreka}${lastCharsOfNewDate}`,
-		).getTime();
-		const ikindiaTime = new Date(
-			`${firstCharsOfNewDate}${ikindia}${lastCharsOfNewDate}`,
-		).getTime();
-		const akshamiTime = new Date(
-			`${firstCharsOfNewDate}${akshami}${lastCharsOfNewDate}`,
-		).getTime();
-		const jaciaTime = new Date(
-			`${firstCharsOfNewDate}${jacia}${lastCharsOfNewDate}`,
-		).getTime();
 		let activeDiffPrayer: number = imsakuTime;
 
-		if (imsakuTime >= currentDate) {
+		if (imsakuTime >= currentDateInMs) {
 			setActivePrayer('imsaku');
 			activeDiffPrayer = imsakuTime;
-		} else if (lindjaDiellitTime >= currentDate) {
+		} else if (lindjaDiellitTime >= currentDateInMs) {
 			setActivePrayer('lindjaDiellit');
 			activeDiffPrayer = lindjaDiellitTime;
-		} else if (drekaTime >= currentDate) {
+		} else if (drekaTime >= currentDateInMs) {
 			setActivePrayer('dreka');
 			activeDiffPrayer = drekaTime;
-		} else if (ikindiaTime >= currentDate) {
+		} else if (ikindiaTime >= currentDateInMs) {
 			setActivePrayer('ikindia');
 			activeDiffPrayer = ikindiaTime;
-		} else if (akshamiTime >= currentDate) {
+		} else if (akshamiTime >= currentDateInMs) {
 			setActivePrayer('akshami');
 			activeDiffPrayer = akshamiTime;
 		} else {
 			setActivePrayer('jacia');
 			activeDiffPrayer = jaciaTime;
 		}
-		const diffMs = activeDiffPrayer - currentDate;
-		setHoursTillPrayer(diffHrs(diffMs));
-		setMinutesTillPrayer(diffMins(diffMs));
+
+		const diffM = (now.diff(activeDiffPrayer, 'minute') % 60) - 1;
+		const diffH = now.diff(activeDiffPrayer, 'hour');
+		const minutesTillPrayer = diffM === -60 ? 0 : -diffM;
+
+		let hoursTillPrayer = -diffH;
+		if (diffM === -60) {
+			hoursTillPrayer = hoursTillPrayer + 1;
+		}
+
+		setPrayer(time);
+		setHoursTillPrayer(hoursTillPrayer);
+		setMinutesTillPrayer(minutesTillPrayer);
+	};
+
+	useEffect(() => {
+		if (time !== undefined) {
+			handleActiveTime();
+		}
 	}, [country, city]);
+
+	useEffect(() => {
+		const activeTimeout = setInterval(() => {
+			handleActiveTime();
+		}, 1000);
+
+		return () => {
+			clearInterval(activeTimeout);
+		};
+	}, []);
 
 	return {
 		activePrayer,
