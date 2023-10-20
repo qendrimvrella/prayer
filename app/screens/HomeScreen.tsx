@@ -16,6 +16,7 @@ import Ikindia from '../icons/Ikindia';
 import Dreka from '../icons/Dreka';
 import LindjaDiellit from '../icons/LindjaDiellit';
 import Imsaku from '../icons/Imsaku';
+import useLocationHandler from '../hooks/useLocationHandler';
 const homeDate = getFullDate();
 
 const prayers = {
@@ -58,14 +59,9 @@ const prayers = {
 };
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
-	const {
-		activePrayer,
-		hoursTillPrayer,
-		minutesTillPrayer,
-		paryer,
-		country,
-		city,
-	} = usePrayerTime();
+	const { activePrayer, hoursTillPrayer, minutesTillPrayer, paryer } =
+		usePrayerTime();
+	const { country, city } = useLocationHandler();
 
 	return (
 		<LinearGradient

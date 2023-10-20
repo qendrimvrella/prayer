@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import allTimes from '../constants/times';
 import { PrayesType } from '../types';
-import useLocationHandler from './useLocationHandler';
 import dayjs from 'dayjs';
 
 export default function usePrayerTime() {
-	const { country, city } = useLocationHandler();
 	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
 	const [hoursTillPrayer, setHoursTillPrayer] = useState(0);
 	const [minutesTillPrayer, setMinutesTillPrayer] = useState(0);
@@ -17,8 +15,14 @@ export default function usePrayerTime() {
 		akshami: '',
 		jacia: '',
 	});
-	const formatedDate = dayjs().format('MM-DD');
-	const time = formatedDate in allTimes ? allTimes[formatedDate] : undefined;
+	const currentMonth = dayjs().format('MM');
+	const currentDay = dayjs().format('DD');
+
+	const time = useMemo(() => {
+		return currentMonth in allTimes
+			? allTimes[currentMonth][currentDay]
+			: undefined;
+	}, []);
 
 	const handleActiveTime = () => {
 		const now = dayjs();
@@ -73,7 +77,7 @@ export default function usePrayerTime() {
 		if (time !== undefined) {
 			handleActiveTime();
 		}
-	}, [country, city]);
+	}, []);
 
 	useEffect(() => {
 		const activeTimeout = setInterval(() => {
@@ -89,8 +93,6 @@ export default function usePrayerTime() {
 		activePrayer,
 		hoursTillPrayer,
 		minutesTillPrayer,
-		country,
-		city,
 		paryer,
 	} as const;
 }
