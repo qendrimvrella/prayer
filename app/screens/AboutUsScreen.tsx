@@ -10,13 +10,13 @@ export default function AboutUsScreen() {
 			<Text style={styles.title}>Reth nesh</Text>
 
 			<Text style={styles.sectionTitle}>Developers</Text>
-			<Text style={styles.sectionText}>Qëndrim Vrella</Text>
+			<Text style={styles.sectionText}>Q.V.</Text>
 
 			<Text style={styles.sectionTitle}>UI/UX Dizajner</Text>
-			<Text style={styles.sectionText}>Albesian Guri</Text>
+			<Text style={styles.sectionText}>A.G.</Text>
 
 			<Text style={styles.sectionTitle}>Kontakti</Text>
-			<Text style={styles.sectionText}>zgjohu@gmail.com</Text>
+			<Text style={styles.sectionText}>info@thirrja.app</Text>
 		</View>
 	);
 }

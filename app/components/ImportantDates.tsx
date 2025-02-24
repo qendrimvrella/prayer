@@ -6,23 +6,23 @@ import Text from './Text';
 const DATES = [
 	{
 		name: 'Dita e parë e Ramazanit',
-		date: '02/04/2022',
+		date: '01/03/2025',
 	},
 	{
 		name: 'Nata e Kadrit',
-		date: '27/04/2022',
+		date: '26/03/2025',
 	},
 	{
 		name: 'Dita e Fitër Bajramit',
-		date: '02/05/2022',
+		date: '30/03/2025',
 	},
 	{
 		name: 'Dita e Kurban Bajramit',
-		date: '09/07/2022',
+		date: '06/06/2025',
 	},
 	{
-		name: 'Viti i Ri - 1444 Hixhrij',
-		date: '30/07/2022',
+		name: 'Viti i Ri - 1444 Hixhri',
+		date: '26/06/2025',
 	},
 ];
 
