@@ -7,7 +7,7 @@ export default function usePrayerTime() {
 	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
 	const [hoursTillPrayer, setHoursTillPrayer] = useState(0);
 	const [minutesTillPrayer, setMinutesTillPrayer] = useState(0);
-	const [paryer, setPrayer] = useState({
+	const [prayer, setPrayer] = useState({
 		imsaku: '',
 		lindjaDiellit: '',
 		dreka: '',
@@ -93,6 +93,6 @@ export default function usePrayerTime() {
 		activePrayer,
 		hoursTillPrayer,
 		minutesTillPrayer,
-		paryer,
+		prayer,
 	} as const;
 }

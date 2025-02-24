@@ -5,10 +5,13 @@ import NavBar from '../components/NavBar';
 import { Text } from '../components/Themed';
 import fontWeights from '../constants/fontWeights';
 import { RootTabScreenProps } from '../types';
+import useNotification from '../hooks/useNotification';
+import Button from '../components/Button';
 
 export default function DatesScreen({
 	navigation,
 }: RootTabScreenProps<'Dates'>) {
+	const { schedulePushNotification } = useNotification();
 	return (
 		<View style={styles.container}>
 			<Text
@@ -21,6 +24,12 @@ export default function DatesScreen({
 				Datat me rëndësi
 			</Text>
 
+			<Button
+				title="Trigger"
+				onPress={() => {
+					schedulePushNotification();
+				}}
+			/>
 			<ImportantDates />
 
 			<NavBar activeRoute="Dates" />

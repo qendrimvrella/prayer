@@ -13,7 +13,6 @@ export default function useSettingsHandler() {
 
 	const onNotificationClick = (val: boolean) => {
 		setIsNotificationActive(val);
-		console.log(val);
 
 		if (val) {
 			requestPermissionsAsync();

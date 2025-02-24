@@ -59,7 +59,7 @@ const prayers = {
 };
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
-	const { activePrayer, hoursTillPrayer, minutesTillPrayer, paryer } =
+	const { activePrayer, hoursTillPrayer, minutesTillPrayer, prayer } =
 		usePrayerTime();
 	const { country, city } = useLocationHandler();
 
@@ -87,7 +87,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				<View>
 					<View style={styles.prayerTimeCon}>
 						<Text style={styles.prayerTimeText}>
-							{prayers[activePrayer].name} {paryer[activePrayer]}
+							{prayers[activePrayer].name} {prayer[activePrayer]}
 						</Text>
 						<Text style={styles.prayerTimeSubText}>
 							{hoursTillPrayer > 0
@@ -105,32 +105,32 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 							{
 								key: 'imsaku',
 								name: 'Imsaku',
-								time: paryer.imsaku,
+								time: prayer.imsaku,
 							},
 							{
 								key: 'lindjaDiellit',
 								name: 'Lindja Diellit',
-								time: paryer.lindjaDiellit,
+								time: prayer.lindjaDiellit,
 							},
 							{
 								key: 'dreka',
 								name: 'Dreka',
-								time: paryer.dreka,
+								time: prayer.dreka,
 							},
 							{
 								key: 'ikindia',
 								name: 'Ikindia',
-								time: paryer.ikindia,
+								time: prayer.ikindia,
 							},
 							{
 								key: 'akshami',
 								name: 'Akshami',
-								time: paryer.akshami,
+								time: prayer.akshami,
 							},
 							{
 								key: 'jacia',
 								name: 'Jacia',
-								time: paryer.jacia,
+								time: prayer.jacia,
 							},
 						]}
 					/>

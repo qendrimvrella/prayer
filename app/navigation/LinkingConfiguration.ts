@@ -4,40 +4,40 @@
  * https://reactnavigation.org/docs/configuring-links
  */
 
-import { LinkingOptions } from "@react-navigation/native";
-import * as Linking from "expo-linking";
+import { LinkingOptions } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
 
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from '../types';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl("/")],
-  config: {
-    screens: {
-      Root: {
-        screens: {
-          Home: {
-            screens: {
-              HomeScreen: "one",
-            },
-          },
-          Dates: {
-            screens: {
-              DatesScreen: "two",
-            },
-          },
-          Settings: {
-            screens: {
-              SettingsScreen: "three",
-            },
-          },
-        },
-      },
-      BeforePrayer: "modal",
-      PrayerNotification: "prayerModal",
-      AboutUs: "aboutModal",
-      NotFound: "*",
-    },
-  },
+	prefixes: [Linking.createURL('/')],
+	config: {
+		screens: {
+			Root: {
+				screens: {
+					Home: {
+						screens: {
+							HomeScreen: 'one',
+						},
+					},
+					Dates: {
+						screens: {
+							DatesScreen: 'two',
+						},
+					},
+					Settings: {
+						screens: {
+							SettingsScreen: 'three',
+						},
+					},
+				},
+			},
+			BeforePrayer: 'modal',
+			PrayerNotification: 'prayerModal',
+			AboutUs: 'aboutModal',
+			NotFound: '*',
+		},
+	},
 };
 
 export default linking;

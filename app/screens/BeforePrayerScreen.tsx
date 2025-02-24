@@ -23,7 +23,8 @@ export default function BeforePrayerScreen({
 		akshami: 0,
 		jacia: 0,
 	});
-	const [activeBeforePrayer, setActiveBeforePrayer] = useState('sabahu');
+	const [activeBeforePrayer, setActiveBeforePrayer] =
+		useState<keyof typeof beforePrayers>('sabahu');
 
 	useEffect(() => {
 		(async () => {
