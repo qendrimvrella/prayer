@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/sq';
 
-export const getFullDate = () => {
-	const now = dayjs();
-
-	return now.format('DD/MM/YYYY');
-};
+export function getFullDate(date = new Date()) {
+	return dayjs(date).locale('sq').format('dddd, D MMMM YYYY');
+}
 
 export const checkCityTime = (time: any, city: number) => {
 	if (city != 0) {
