@@ -53,6 +53,7 @@ const NavBar = ({ activeRoute }: Props) => {
 	return (
 		<BlurView
 			intensity={50}
+			tint={'light'}
 			style={{
 				height: 90,
 				position: 'absolute',

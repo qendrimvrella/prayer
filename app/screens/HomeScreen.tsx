@@ -19,6 +19,7 @@ import Imsaku from '../icons/Imsaku';
 import useLocationHandler from '../hooks/useLocationHandler';
 import { Ionicons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
+import HapticButton from '../components/HapticButton';
 
 const prayers = {
 	imsaku: {
@@ -106,7 +107,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 					</Text>
 
 					<View style={styles.dateContainer}>
-						<Pressable
+						<HapticButton
 							onPress={goToPreviousDay}
 							style={styles.arrowButton}>
 							<Ionicons
@@ -114,18 +115,18 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								size={24}
 								color="#fff"
 							/>
-						</Pressable>
+						</HapticButton>
 
-						<Pressable onPress={goToToday}>
+						<HapticButton onPress={goToToday}>
 							<Text style={styles.dateText}>{displayDate}</Text>
 							{dateOffset !== 0 && (
 								<Text style={styles.todayText}>
 									Shtyp për tu kthyer te dita e sotme
 								</Text>
 							)}
-						</Pressable>
+						</HapticButton>
 
-						<Pressable
+						<HapticButton
 							onPress={goToNextDay}
 							style={styles.arrowButton}>
 							<Ionicons
@@ -133,7 +134,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								size={24}
 								color="#fff"
 							/>
-						</Pressable>
+						</HapticButton>
 					</View>
 				</View>
 

@@ -10,6 +10,7 @@ import ArrowRightIcon from '../icons/ArrowRightIcon';
 import InfoIcon from '../icons/InfoIcon';
 import SelectModal from './SelectModal';
 import { Text } from './Themed';
+import HapticButton from './HapticButton';
 
 const Settings = () => {
 	const navigation = useNavigation();
@@ -24,31 +25,33 @@ const Settings = () => {
 		<>
 			<View style={styles.container}>
 				<Text style={styles.settingTitle}>Lokacioni</Text>
-				<Pressable
+				<HapticButton
 					onPress={() => setCountryModalVisibility(true)}
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
 						paddingVertical: 8,
+						marginTop: 12,
 					}}>
 					<Text style={styles.settingText}>Shteti</Text>
 					<Text style={styles.settingLocation}>{country}</Text>
-				</Pressable>
+				</HapticButton>
 
-				<Pressable
+				<HapticButton
 					onPress={() => setCityModalVisibility(true)}
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
 						paddingVertical: 8,
+						marginTop: 12,
 					}}>
 					<Text style={styles.settingText}>Qyteti</Text>
 					<Text style={styles.settingLocation}>
 						{city != '' ? city : 'Zgjidhni'}
 					</Text>
-				</Pressable>
+				</HapticButton>
 
 				<View
 					style={{
@@ -83,7 +86,7 @@ const Settings = () => {
 
 				{isNotificationActive && (
 					<>
-						<Pressable
+						<HapticButton
 							onPress={() =>
 								navigation.navigate('PrayerNotification')
 							}
@@ -98,9 +101,9 @@ const Settings = () => {
 								Njoftimet për kohët
 							</Text>
 							<ArrowRightIcon />
-						</Pressable>
+						</HapticButton>
 
-						<Pressable
+						<HapticButton
 							onPress={() => navigation.navigate('BeforePrayer')}
 							style={{
 								flexDirection: 'row',
@@ -113,11 +116,11 @@ const Settings = () => {
 								Para-njoftimet
 							</Text>
 							<ArrowRightIcon />
-						</Pressable>
+						</HapticButton>
 					</>
 				)}
 
-				<Pressable
+				<HapticButton
 					onPress={() => navigation.navigate('AboutUs')}
 					style={{
 						flexDirection: 'row',
@@ -133,7 +136,7 @@ const Settings = () => {
 						}}>
 						Rreth nesh
 					</Text>
-				</Pressable>
+				</HapticButton>
 			</View>
 			<SelectModal
 				title="Shteti"
