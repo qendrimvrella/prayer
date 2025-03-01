@@ -9,6 +9,7 @@ import SelectModal from '../components/SelectModal';
 import { Text, View } from '../components/Themed';
 import fontWeights from '../constants/fontWeights';
 import { RootStackScreenProps } from '../types';
+import useNotification from '../hooks/useNotification';
 
 export default function BeforePrayerScreen({
 	navigation,
@@ -25,6 +26,10 @@ export default function BeforePrayerScreen({
 	});
 	const [activeBeforePrayer, setActiveBeforePrayer] =
 		useState<keyof typeof beforePrayers>('sabahu');
+	const {
+		scheduleAllPrayersNotification,
+		cancelAllScheduledNotificationsAsync,
+	} = useNotification();
 
 	useEffect(() => {
 		(async () => {
@@ -111,6 +116,11 @@ export default function BeforePrayerScreen({
 							'isBeforePrayerNotificationActive',
 							JSON.stringify(beforeNotification),
 						);
+						if (beforeNotification) {
+							await scheduleAllPrayersNotification();
+						} else {
+							await cancelAllScheduledNotificationsAsync();
+						}
 						setIsLoading(false);
 						navigation.goBack();
 					}}

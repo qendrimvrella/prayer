@@ -9,13 +9,18 @@ import {
 import * as Haptics from 'expo-haptics';
 import fontWeights from '../constants/fontWeights';
 
-interface Props extends PressableProps {
+export interface HapticButtonProps extends PressableProps {
 	children: React.ReactNode;
 	style?: StyleProp<ViewStyle>;
 	onPress?: (e: any) => void;
 }
 
-const HapticButton = ({ children, style, onPress, ...props }: Props) => {
+const HapticButton = ({
+	children,
+	style,
+	onPress,
+	...props
+}: HapticButtonProps) => {
 	const handlePress = (e: any) => {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 		onPress && onPress(e);

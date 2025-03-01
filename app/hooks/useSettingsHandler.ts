@@ -11,14 +11,14 @@ export default function useSettingsHandler() {
 
 	const [isNotificationActive, setIsNotificationActive] = useState(false);
 
-	const onNotificationClick = (val: boolean) => {
+	const onNotificationClick = async (val: boolean) => {
 		setIsNotificationActive(val);
 
 		if (val) {
-			requestPermissionsAsync();
-			cancelAllScheduledNotificationsAsync();
+			await requestPermissionsAsync();
+			await cancelAllScheduledNotificationsAsync();
 		} else {
-			cancelAllScheduledNotificationsAsync();
+			await cancelAllScheduledNotificationsAsync();
 			Linking.openSettings();
 		}
 	};

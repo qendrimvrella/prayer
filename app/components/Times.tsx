@@ -19,7 +19,7 @@ const Times = ({ activeTime, items }: Props) => {
 		<View>
 			{items.map((item, index) => (
 				<BlurView
-					intensity={item.key === activeTime ? 30 : 80}
+					intensity={item.key === activeTime ? 50 : 0}
 					key={index}
 					tint={'light'}
 					style={{
@@ -37,6 +37,10 @@ const Times = ({ activeTime, items }: Props) => {
 						style={{
 							color: '#fff',
 							fontSize: 18,
+							fontFamily:
+								item.key === activeTime
+									? fontWeights[500]
+									: fontWeights[400],
 						}}>
 						{item.name}
 					</Text>
@@ -44,7 +48,10 @@ const Times = ({ activeTime, items }: Props) => {
 						style={{
 							color: '#fff',
 							fontSize: 18,
-							fontFamily: fontWeights[500],
+							fontFamily:
+								item.key === activeTime
+									? fontWeights[500]
+									: fontWeights[400],
 						}}>
 						{item.time}
 					</Text>

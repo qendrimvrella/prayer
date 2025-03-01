@@ -7,6 +7,7 @@ import fontWeights from '../constants/fontWeights';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/Button';
 import { RootStackScreenProps } from '../types';
+import useNotification from '../hooks/useNotification';
 
 export default function PrayerNotificationScreen({
 	navigation,
@@ -19,6 +20,7 @@ export default function PrayerNotificationScreen({
 		akshami: true,
 		jacia: true,
 	});
+	const { scheduleAllPrayersNotification } = useNotification();
 
 	useEffect(() => {
 		(async () => {
@@ -77,7 +79,7 @@ export default function PrayerNotificationScreen({
 					setTimes((prev) => ({ ...prev, jacia: val }))
 				}
 				style={{
-					marginBottom: 36
+					marginBottom: 36,
 				}}
 			/>
 
@@ -90,6 +92,7 @@ export default function PrayerNotificationScreen({
 						'prayerNotification',
 						JSON.stringify(times),
 					);
+					await scheduleAllPrayersNotification();
 					setIsLoading(false);
 					navigation.goBack();
 				}}

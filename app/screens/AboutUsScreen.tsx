@@ -38,6 +38,7 @@ export default function AboutUsScreen() {
 						/>
 						<Text style={styles.teamRole}>Developers</Text>
 						<Text style={styles.sectionText}>Q.V.</Text>
+						<Text style={styles.sectionText}>B.M.</Text>
 					</View>
 					<View style={styles.teamMember}>
 						<Ionicons

@@ -5,6 +5,7 @@ import fontWeights from '../constants/fontWeights';
 import Layout from '../constants/Layout';
 import CheckIcon from '../icons/CheckIcon';
 import { View, Text } from './Themed';
+import HapticButton from './HapticButton';
 
 interface Props {
 	title: string;
@@ -37,26 +38,19 @@ const SelectModal = ({
 					]}>
 					<Text style={styles.title}>{title}</Text>
 					{items.map((item, index) => (
-						<Pressable
+						<HapticButton
 							key={index}
 							onPress={() => {
 								onPress(item);
 								onClose();
 							}}
-							style={({ pressed }) => [
-								{
-									backgroundColor: pressed
-										? '#759CDC33'
-										: undefined,
-								},
-								{
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-									alignItems: 'center',
-									paddingHorizontal: 24,
-									paddingVertical: 20,
-								},
-							]}>
+							style={{
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								paddingHorizontal: 24,
+								paddingVertical: 20,
+							}}>
 							<Text
 								style={[
 									styles.selectTitle,
@@ -76,7 +70,7 @@ const SelectModal = ({
 									stroke={Colors.primary}
 								/>
 							)}
-						</Pressable>
+						</HapticButton>
 					))}
 				</View>
 			</Pressable>

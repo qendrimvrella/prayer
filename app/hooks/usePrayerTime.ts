@@ -46,24 +46,20 @@ export default function usePrayerTime(dateOffset = 0) {
 				},
 			);
 
-			// Determine which prayer would be active at this time of day
-			const nowTimeString = now.format('HH:mm');
-			if (time) {
-				if (nowTimeString < time.imsaku) {
-					setActivePrayer('jacia'); // Before imsaku, it's still night
-				} else if (nowTimeString < time.lindjaDiellit) {
-					setActivePrayer('imsaku');
-				} else if (nowTimeString < time.dreka) {
-					setActivePrayer('lindjaDiellit');
-				} else if (nowTimeString < time.ikindia) {
-					setActivePrayer('dreka');
-				} else if (nowTimeString < time.akshami) {
-					setActivePrayer('ikindia');
-				} else if (nowTimeString < time.jacia) {
-					setActivePrayer('akshami');
-				} else {
-					setActivePrayer('jacia');
-				}
+			if (dateOffset === 1) {
+				setActivePrayer('imsaku');
+			} else if (dateOffset === 2) {
+				setActivePrayer('lindjaDiellit');
+			} else if (dateOffset === 3) {
+				setActivePrayer('dreka');
+			} else if (dateOffset === 4) {
+				setActivePrayer('ikindia');
+			} else if (dateOffset === 5) {
+				setActivePrayer('akshami');
+			} else if (dateOffset === 6) {
+				setActivePrayer('jacia');
+			} else {
+				setActivePrayer('imsaku');
 			}
 			return;
 		}
