@@ -56,11 +56,31 @@ async function scheduleAllPrayersNotification(daysToSchedule = 7) {
 	}
 
 	const prayers = {
-		sabahu: { title: 'Sabahu', body: 'Koha e namazit të Sabahut' },
-		dreka: { title: 'Dreka', body: 'Koha e namazit të Drekës' },
-		ikindia: { title: 'Ikindia', body: 'Koha e namazit të Ikindisë' },
-		akshami: { title: 'Akshami', body: 'Koha e namazit të Akshamit' },
-		jacia: { title: 'Jacia', body: 'Koha e namazit të Jacisë' },
+		sabahu: {
+			title: 'Sabahu',
+			titleBefore: 'Sabahut',
+			body: 'Koha e namazit të Sabahut',
+		},
+		dreka: {
+			title: 'Dreka',
+			titleBefore: 'Drekës',
+			body: 'Koha e namazit të Drekës',
+		},
+		ikindia: {
+			title: 'Ikindia',
+			titleBefore: 'Ikindisë',
+			body: 'Koha e namazit të Ikindisë',
+		},
+		akshami: {
+			title: 'Akshami',
+			titleBefore: 'Akshamit',
+			body: 'Koha e namazit të Akshamit',
+		},
+		jacia: {
+			title: 'Jacia',
+			titleBefore: 'Jacisë',
+			body: 'Koha e namazit të Jacisë',
+		},
 	};
 
 	// Schedule for multiple days
@@ -78,14 +98,32 @@ async function scheduleAllPrayersNotification(daysToSchedule = 7) {
 		) as [PrayerType, boolean][]) {
 			if (!enabled) continue;
 
-			const prayerTime = prayerTimes[prayer];
+			let prayerTime: string | undefined;
+
+			if (prayer === 'sabahu') {
+				prayerTime = prayerTimes.imsaku;
+			} else if (prayer === 'dreka') {
+				prayerTime = prayerTimes.dreka;
+			} else if (prayer === 'ikindia') {
+				prayerTime = prayerTimes.ikindia;
+			} else if (prayer === 'akshami') {
+				prayerTime = prayerTimes.akshami;
+			} else if (prayer === 'jacia') {
+				prayerTime = prayerTimes.jacia;
+			}
+
 			if (!prayerTime) continue;
 
 			const [hours, minutes] = prayerTime.split(':');
-			const scheduledTime = targetDate
+
+			let scheduledTime = targetDate
 				.hour(parseInt(hours))
 				.minute(parseInt(minutes))
 				.second(0);
+
+			if (prayer === 'sabahu') {
+				scheduledTime = scheduledTime.add(30, 'minute');
+			}
 
 			// Skip if time has already passed
 			if (scheduledTime.isBefore(dayjs())) continue;
@@ -121,7 +159,7 @@ async function scheduleAllPrayersNotification(daysToSchedule = 7) {
 				await Notifications.scheduleNotificationAsync({
 					content: {
 						title: `${prayers[prayer].title} - Përkujtim`,
-						body: `${beforeMinutes} minuta deri në kohën e ${prayers[prayer].title}`,
+						body: `${beforeMinutes} minuta deri në kohën e ${prayers[prayer].titleBefore}`,
 						data: {
 							prayer,
 							reminder: true,

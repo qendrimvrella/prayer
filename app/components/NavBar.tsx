@@ -8,9 +8,10 @@ import { BlurView } from 'expo-blur';
 
 interface Props {
 	activeRoute: string;
+	homeIconColor?: string;
 }
 
-const NavBar = ({ activeRoute }: Props) => {
+const NavBar = ({ activeRoute, homeIconColor }: Props) => {
 	const navigation = useNavigation();
 	const ROUTES = [
 		{
@@ -30,8 +31,7 @@ const NavBar = ({ activeRoute }: Props) => {
 		{
 			isActive: activeRoute === 'Home',
 			activeBgColor: '#ffffff99',
-			icon: () => <ClockIcon />,
-			iconColor: '#759CDC',
+			icon: () => <ClockIcon iconColor={homeIconColor} />,
 			onPress: () => navigation.navigate('Root', { screen: 'Home' }),
 		},
 		{

@@ -7,6 +7,7 @@ export default function usePrayerTime(dateOffset = 0) {
 	const [activePrayer, setActivePrayer] = useState<PrayesType>('imsaku');
 	const [hoursTillPrayer, setHoursTillPrayer] = useState(0);
 	const [minutesTillPrayer, setMinutesTillPrayer] = useState(0);
+	const [secondsTillPrayer, setSecondsTillPrayer] = useState(0);
 	const [prayer, setPrayer] = useState({
 		imsaku: '',
 		lindjaDiellit: '',
@@ -96,18 +97,20 @@ export default function usePrayerTime(dateOffset = 0) {
 			activeDiffPrayer = jaciaTime;
 		}
 
-		const diffM = (now.diff(activeDiffPrayer, 'minute') % 60) - 1;
-		const diffH = now.diff(activeDiffPrayer, 'hour');
-		const minutesTillPrayer = diffM === -60 ? 0 : -diffM;
+		// Calculate time difference in seconds
+		const diffInSeconds = Math.floor(
+			(activeDiffPrayer - currentDateInMs) / 1000,
+		);
 
-		let hoursTillPrayer = -diffH;
-		if (diffM === -60) {
-			hoursTillPrayer = hoursTillPrayer + 1;
-		}
+		// Calculate hours, minutes, and seconds
+		const diffH = Math.floor(diffInSeconds / 3600);
+		const diffM = Math.floor((diffInSeconds % 3600) / 60);
+		const diffS = diffInSeconds % 60;
 
 		setPrayer(time);
-		setHoursTillPrayer(hoursTillPrayer);
-		setMinutesTillPrayer(minutesTillPrayer);
+		setHoursTillPrayer(diffH);
+		setMinutesTillPrayer(diffM);
+		setSecondsTillPrayer(diffS);
 	};
 
 	useEffect(() => {
@@ -133,6 +136,7 @@ export default function usePrayerTime(dateOffset = 0) {
 		activePrayer,
 		hoursTillPrayer,
 		minutesTillPrayer,
+		secondsTillPrayer,
 		prayer,
 	} as const;
 }

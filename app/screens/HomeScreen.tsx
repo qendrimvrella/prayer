@@ -62,8 +62,13 @@ const prayers = {
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 	const [dateOffset, setDateOffset] = React.useState(0);
-	const { activePrayer, hoursTillPrayer, minutesTillPrayer, prayer } =
-		usePrayerTime(dateOffset);
+	const {
+		activePrayer,
+		hoursTillPrayer,
+		minutesTillPrayer,
+		secondsTillPrayer,
+		prayer,
+	} = usePrayerTime(dateOffset);
 	const { country, city } = useLocationHandler();
 
 	// Get the date for display based on the current offset
@@ -148,11 +153,20 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 								</Text>
 								<Text style={styles.prayerTimeSubText}>
 									{hoursTillPrayer > 0
-										? `${hoursTillPrayer}h `
-										: null}
+										? `${hoursTillPrayer
+												.toString()
+												.padStart(2, '0')}:`
+										: '00:'}
 									{minutesTillPrayer > 0
-										? `${minutesTillPrayer}m`
-										: '0m'}
+										? `${minutesTillPrayer
+												.toString()
+												.padStart(2, '0')}:`
+										: '00:'}
+									{secondsTillPrayer > 0
+										? `${secondsTillPrayer
+												.toString()
+												.padStart(2, '0')}`
+										: '00'}
 								</Text>
 							</>
 						) : null}
@@ -160,6 +174,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 
 					<Times
 						activeTime={dateOffset === 0 ? activePrayer : ''}
+						activeTimeColor={prayers[activePrayer].secondColor}
 						items={[
 							{
 								key: 'imsaku',
@@ -196,7 +211,10 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 				</View>
 			</View>
 
-			<NavBar activeRoute="Home" />
+			<NavBar
+				activeRoute="Home"
+				homeIconColor={prayers[activePrayer].secondColor}
+			/>
 		</LinearGradient>
 	);
 }
@@ -248,7 +266,7 @@ const styles = StyleSheet.create({
 	prayerTimeText: {
 		color: '#fff',
 		textAlign: 'center',
-		fontSize: 24,
+		fontSize: 28,
 		fontFamily: fontWeights[400],
 	},
 	prayerTimeSubText: {
