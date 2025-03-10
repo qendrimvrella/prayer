@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, Image, Linking, TouchableOpacity } from 'react-native';
+import {
+	StyleSheet,
+	Image,
+	Linking,
+	TouchableOpacity,
+	Platform,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Text, View } from '../components/Themed';
@@ -79,7 +85,7 @@ export default function AboutUsScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 24,
+		paddingTop: Platform.OS === 'ios' ? 24 : 44,
 		paddingHorizontal: 24,
 	},
 	header: {

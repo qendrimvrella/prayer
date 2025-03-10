@@ -134,6 +134,8 @@ async function scheduleAllPrayersNotification(daysToSchedule = 7) {
 					title: prayers[prayer].title,
 					body: prayers[prayer].body,
 					data: { prayer, date: scheduledTime.format('YYYY-MM-DD') },
+					sound: true,
+					interruptionLevel: 'active',
 				},
 				trigger: {
 					type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
@@ -165,6 +167,8 @@ async function scheduleAllPrayersNotification(daysToSchedule = 7) {
 							reminder: true,
 							date: scheduledTime.format('YYYY-MM-DD'),
 						},
+						sound: true,
+						interruptionLevel: 'active',
 					},
 					trigger: {
 						type: Notifications.SchedulableTriggerInputTypes
@@ -186,6 +190,8 @@ async function schedulePushNotification() {
 		content: {
 			title: 'Dreka',
 			body: 'Koha e namzit te Drekes',
+			sound: true,
+			interruptionLevel: 'active',
 		},
 		trigger: {
 			type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,

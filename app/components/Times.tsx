@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur';
 import React from 'react';
-import { View, Pressable } from 'react-native';
+import { View, Pressable, Platform } from 'react-native';
 import Animated, {
 	useSharedValue,
 	useAnimatedStyle,
@@ -65,7 +65,7 @@ const Times = ({ activeTime, activeTimeColor, items }: Props) => {
 									alignItems: 'center',
 									overflow: 'hidden',
 									width: Layout.window.width - 24 * 2,
-									height: 48,
+									height: Platform.OS === 'ios' ? 48 : 40,
 									paddingHorizontal: 16,
 									borderRadius: 8,
 								}}>

@@ -6,6 +6,7 @@ export default function useSettingsHandler() {
 	const {
 		requestPermissionsAsync,
 		allowsNotificationsAsync,
+		scheduleAllPrayersNotification,
 		cancelAllScheduledNotificationsAsync,
 	} = useNotification();
 
@@ -16,7 +17,7 @@ export default function useSettingsHandler() {
 
 		if (val) {
 			await requestPermissionsAsync();
-			await cancelAllScheduledNotificationsAsync();
+			await scheduleAllPrayersNotification(7);
 		} else {
 			await cancelAllScheduledNotificationsAsync();
 			Linking.openSettings();

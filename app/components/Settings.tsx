@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Pressable, View, StyleSheet, Switch } from 'react-native';
+import { View, StyleSheet, Switch } from 'react-native';
 import Colors from '../constants/Colors';
 import fontWeights from '../constants/fontWeights';
 import locations from '../constants/locations';

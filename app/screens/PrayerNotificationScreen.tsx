@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import CustomSwitch from '../components/CustomSwitch';
 import { Text, View } from '../components/Themed';
 import fontWeights from '../constants/fontWeights';
@@ -92,7 +92,7 @@ export default function PrayerNotificationScreen({
 						'prayerNotification',
 						JSON.stringify(times),
 					);
-					await scheduleAllPrayersNotification();
+					await scheduleAllPrayersNotification(7);
 					setIsLoading(false);
 					navigation.goBack();
 				}}
@@ -104,7 +104,7 @@ export default function PrayerNotificationScreen({
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 24,
+		paddingTop: Platform.OS === 'ios' ? 24 : 44,
 		paddingHorizontal: 24,
 	},
 	title: {

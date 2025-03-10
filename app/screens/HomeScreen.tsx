@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable, Platform } from 'react-native';
 import NavBar from '../components/NavBar';
 import { RootTabScreenProps } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -228,7 +228,10 @@ const styles = StyleSheet.create({
 	},
 	wrapper: {
 		justifyContent: 'space-between',
-		height: Layout.window.height - 165,
+		height:
+			Platform.OS === 'ios'
+				? Layout.window.height - 165
+				: Layout.window.height - 135,
 	},
 	locationText: {
 		color: '#fff',
@@ -272,7 +275,7 @@ const styles = StyleSheet.create({
 	prayerTimeSubText: {
 		color: '#fff',
 		textAlign: 'center',
-		fontSize: 56,
+		fontSize: Platform.OS === 'ios' ? 56 : 48,
 		fontFamily: fontWeights[500],
 	},
 	dateViewText: {

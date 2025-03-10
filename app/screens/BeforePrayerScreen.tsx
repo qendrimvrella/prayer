@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import Button from '../components/Button';
 import CustomButton from '../components/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,10 +26,7 @@ export default function BeforePrayerScreen({
 	});
 	const [activeBeforePrayer, setActiveBeforePrayer] =
 		useState<keyof typeof beforePrayers>('sabahu');
-	const {
-		scheduleAllPrayersNotification,
-		cancelAllScheduledNotificationsAsync,
-	} = useNotification();
+	const { scheduleAllPrayersNotification } = useNotification();
 
 	useEffect(() => {
 		(async () => {
@@ -116,11 +113,8 @@ export default function BeforePrayerScreen({
 							'isBeforePrayerNotificationActive',
 							JSON.stringify(beforeNotification),
 						);
-						if (beforeNotification) {
-							await scheduleAllPrayersNotification();
-						} else {
-							await cancelAllScheduledNotificationsAsync();
-						}
+
+						await scheduleAllPrayersNotification(7);
 						setIsLoading(false);
 						navigation.goBack();
 					}}
@@ -147,7 +141,7 @@ export default function BeforePrayerScreen({
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 24,
+		paddingTop: Platform.OS === 'ios' ? 24 : 44,
 		paddingHorizontal: 24,
 	},
 	title: {

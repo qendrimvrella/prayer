@@ -9,6 +9,7 @@ import Navigation from './navigation';
 
 import * as Notifications from 'expo-notifications';
 import useNotification from './hooks/useNotification';
+import * as NavigationBar from 'expo-navigation-bar';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -24,12 +25,14 @@ export default function App() {
 	const { scheduleAllPrayersNotification, allowsNotificationsAsync } =
 		useNotification();
 
+	NavigationBar.setBackgroundColorAsync('transparent');
+	NavigationBar.setPositionAsync('absolute');
+
 	useEffect(() => {
 		// Request notification permissions and schedule notifications
 		(async () => {
 			const { status } = await Notifications.requestPermissionsAsync();
 			if (status === 'granted') {
-				console.log('Scheduling notifications for the next 7 days');
 				await scheduleAllPrayersNotification(7); // Schedule for 7 days
 
 				// Store the last scheduling time
@@ -56,7 +59,6 @@ export default function App() {
 						3 * 24 * 60 * 60 * 1000
 					) {
 						if (await allowsNotificationsAsync()) {
-							console.log('Rescheduling notifications');
 							await scheduleAllPrayersNotification(7);
 							await AsyncStorage.setItem(
 								'lastNotificationSchedule',
