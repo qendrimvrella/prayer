@@ -45,6 +45,7 @@ export type PrayesType =
 	| 'dreka'
 	| 'ikindia'
 	| 'akshami'
-	| 'jacia';
+	| 'jacia'
+	| 'sabahu';
 
 export type LocaitonsType = 'Kosovë' | 'Shqipëri' | 'Maqedoni Veriore';

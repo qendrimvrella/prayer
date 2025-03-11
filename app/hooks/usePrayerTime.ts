@@ -10,6 +10,7 @@ export default function usePrayerTime(dateOffset = 0) {
 	const [secondsTillPrayer, setSecondsTillPrayer] = useState(0);
 	const [prayer, setPrayer] = useState({
 		imsaku: '',
+		sabahu: '',
 		lindjaDiellit: '',
 		dreka: '',
 		ikindia: '',
@@ -37,14 +38,22 @@ export default function usePrayerTime(dateOffset = 0) {
 		if (dateOffset !== 0) {
 			// For non-current days, just set the prayer times without countdown
 			setPrayer(
-				time || {
-					imsaku: '',
-					lindjaDiellit: '',
-					dreka: '',
-					ikindia: '',
-					akshami: '',
-					jacia: '',
-				},
+				time
+					? {
+							...time,
+							sabahu: dayjs(`${date} ${time.imsaku}`)
+								.add(30, 'minutes')
+								.format('HH:mm'),
+					  }
+					: {
+							imsaku: '',
+							sabahu: '',
+							lindjaDiellit: '',
+							dreka: '',
+							ikindia: '',
+							akshami: '',
+							jacia: '',
+					  },
 			);
 
 			if (dateOffset === 1) {
@@ -67,6 +76,9 @@ export default function usePrayerTime(dateOffset = 0) {
 
 		// Original logic for current day
 		const imsakuTime = dayjs(`${date} ${time.imsaku}`).valueOf();
+		const sabahuTime = dayjs(`${date} ${time.imsaku}`)
+			.add(30, 'minutes')
+			.valueOf();
 		const lindjaDiellitTime = dayjs(
 			`${date} ${time.lindjaDiellit}`,
 		).valueOf();
@@ -80,6 +92,9 @@ export default function usePrayerTime(dateOffset = 0) {
 		if (imsakuTime >= currentDateInMs) {
 			setActivePrayer('imsaku');
 			activeDiffPrayer = imsakuTime;
+		} else if (sabahuTime >= currentDateInMs) {
+			setActivePrayer('sabahu');
+			activeDiffPrayer = sabahuTime;
 		} else if (lindjaDiellitTime >= currentDateInMs) {
 			setActivePrayer('lindjaDiellit');
 			activeDiffPrayer = lindjaDiellitTime;
@@ -107,7 +122,12 @@ export default function usePrayerTime(dateOffset = 0) {
 		const diffM = Math.floor((diffInSeconds % 3600) / 60);
 		const diffS = diffInSeconds % 60;
 
-		setPrayer(time);
+		setPrayer({
+			...time,
+			sabahu: dayjs(`${date} ${time.imsaku}`)
+				.add(30, 'minutes')
+				.format('HH:mm'),
+		});
 		setHoursTillPrayer(diffH);
 		setMinutesTillPrayer(diffM);
 		setSecondsTillPrayer(diffS);

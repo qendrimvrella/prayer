@@ -46,7 +46,7 @@ const Times = ({ activeTime, activeTimeColor, items }: Props) => {
 					return {
 						transform: [{ scale: scales[index].value }],
 						borderRadius: 8,
-						marginBottom: 8,
+						marginBottom: 4,
 					};
 				});
 
@@ -65,7 +65,7 @@ const Times = ({ activeTime, activeTimeColor, items }: Props) => {
 									alignItems: 'center',
 									overflow: 'hidden',
 									width: Layout.window.width - 24 * 2,
-									height: Platform.OS === 'ios' ? 48 : 40,
+									height: Platform.OS === 'ios' ? 44 : 40,
 									paddingHorizontal: 16,
 									borderRadius: 8,
 								}}>

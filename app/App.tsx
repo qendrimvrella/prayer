@@ -9,7 +9,6 @@ import Navigation from './navigation';
 
 import * as Notifications from 'expo-notifications';
 import useNotification from './hooks/useNotification';
-import * as NavigationBar from 'expo-navigation-bar';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -24,9 +23,6 @@ export default function App() {
 	const colorScheme = useColorScheme();
 	const { scheduleAllPrayersNotification, allowsNotificationsAsync } =
 		useNotification();
-
-	NavigationBar.setBackgroundColorAsync('transparent');
-	NavigationBar.setPositionAsync('absolute');
 
 	useEffect(() => {
 		// Request notification permissions and schedule notifications
