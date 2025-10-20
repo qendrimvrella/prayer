@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -13,6 +13,8 @@ import useNotification from './hooks/useNotification';
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
 		shouldShowAlert: true,
+		shouldShowBanner: true,
+		shouldShowList: true,
 		shouldPlaySound: true,
 		shouldSetBadge: false,
 	}),
