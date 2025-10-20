@@ -5,6 +5,7 @@ import ClockIcon from '../icons/ClockIcon';
 import NavItem from './NavItem';
 import SettingsIcon from '../icons/SettingsIcon';
 import { BlurView } from 'expo-blur';
+import { Platform } from 'react-native';
 
 interface Props {
 	activeRoute: string;
@@ -55,7 +56,7 @@ const NavBar = ({ activeRoute, homeIconColor }: Props) => {
 			intensity={50}
 			tint={'light'}
 			style={{
-				height: 90,
+				height: Platform.OS === 'ios' ? 90 : 80,
 				position: 'absolute',
 				bottom: 0,
 				left: 0,

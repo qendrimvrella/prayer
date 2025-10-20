@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
 		height:
 			Platform.OS === 'ios'
 				? Layout.window.height - 165
-				: Layout.window.height - 135,
+				: Layout.window.height - 155,
 	},
 	locationText: {
 		color: '#fff',
