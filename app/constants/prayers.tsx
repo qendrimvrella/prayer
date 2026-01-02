@@ -1,5 +1,4 @@
 import Imsaku from '../icons/Imsaku';
-import LindjaDiellit from '../icons/LindjaDiellit';
 
 export default {
 	imsaku: {
