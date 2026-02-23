@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
 import NavBar from '../components/NavBar';
-import { RootTabScreenProps } from '../types';
 import { LinearGradient } from 'expo-linear-gradient';
 import Text from '../components/Text';
 import fontWeights from '../constants/fontWeights';
@@ -20,7 +19,6 @@ import useLocationHandler from '../hooks/useLocationHandler';
 import { Ionicons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import HapticButton from '../components/HapticButton';
-import * as NavigationBar from 'expo-navigation-bar';
 
 const prayers = {
 	imsaku: {
@@ -67,7 +65,7 @@ const prayers = {
 	},
 };
 
-export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+export default function HomeScreen() {
 	const [dateOffset, setDateOffset] = React.useState(0);
 	const {
 		activePrayer,
@@ -78,10 +76,6 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 	} = usePrayerTime(dateOffset);
 	const { country, city } = useLocationHandler();
 
-	if (Platform.OS === 'android') {
-		NavigationBar.setBackgroundColorAsync('transparent');
-		NavigationBar.setPositionAsync('absolute');
-	}
 	// Get the date for display based on the current offset
 	const displayDate = React.useMemo(() => {
 		const date = dayjs().add(dateOffset, 'day');

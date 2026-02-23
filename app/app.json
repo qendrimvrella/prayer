@@ -1,58 +1,56 @@
 {
-  "expo": {
-    "name": "Thirrja",
-    "slug": "thirrja",
-    "version": "1.0.5",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "thirrja",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#6765E0",
-      "imageWidth": 300
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "app.thirrja",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "app.thirrja"
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-asset",
-      "expo-font",
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#6765E0",
-          "image": "./assets/images/splash.png",
-          "imageWidth": 300
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "2559cb68-ff94-4619-824e-4156851b52d6"
-      }
-    }
-  }
+	"expo": {
+		"name": "Thirrja",
+		"slug": "thirrja",
+		"version": "1.0.5",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"scheme": "thirrja",
+		"userInterfaceStyle": "automatic",
+		"newArchEnabled": true,
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": false,
+			"bundleIdentifier": "app.thirrja",
+			"infoPlist": {
+				"ITSAppUsesNonExemptEncryption": false
+			}
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"package": "app.thirrja"
+		},
+		"web": {
+			"favicon": "./assets/images/favicon.png"
+		},
+		"plugins": [
+			"expo-asset",
+			"expo-font",
+			[
+				"expo-splash-screen",
+				{
+					"backgroundColor": "#6765E0",
+					"image": "./assets/images/splash.png",
+					"imageWidth": 200
+				}
+			],
+			[
+				"expo-location",
+				{
+					"locationAlwaysAndWhenInUsePermission": "Aplikacioni përdor vendndodhjen tuaj për të llogaritur drejtimin e saktë të Kiblës drejt Mekës."
+				}
+			]
+		],
+		"extra": {
+			"eas": {
+				"projectId": "2559cb68-ff94-4619-824e-4156851b52d6"
+			}
+		}
+	}
 }

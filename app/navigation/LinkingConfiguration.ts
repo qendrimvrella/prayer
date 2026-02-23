@@ -25,6 +25,11 @@ const linking: LinkingOptions<RootStackParamList> = {
 							DatesScreen: 'two',
 						},
 					},
+					Kibla: {
+						screens: {
+							KiblaScreen: 'kibla',
+						},
+					},
 					Settings: {
 						screens: {
 							SettingsScreen: 'three',

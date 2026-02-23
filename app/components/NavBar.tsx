@@ -4,6 +4,7 @@ import CalendarIcon from '../icons/CalendarIcon';
 import ClockIcon from '../icons/ClockIcon';
 import NavItem from './NavItem';
 import SettingsIcon from '../icons/SettingsIcon';
+import KiblaIcon from '../icons/KiblaIcon';
 import { BlurView } from 'expo-blur';
 import { Platform } from 'react-native';
 
@@ -21,7 +22,9 @@ const NavBar = ({ activeRoute, homeIconColor }: Props) => {
 			icon: () => (
 				<CalendarIcon
 					stroke={
-						activeRoute === 'Dates' || activeRoute === 'Home'
+						activeRoute === 'Dates' ||
+						activeRoute === 'Home' ||
+						activeRoute === 'Kibla'
 							? '#fff'
 							: '#759CDC'
 					}
@@ -32,8 +35,26 @@ const NavBar = ({ activeRoute, homeIconColor }: Props) => {
 		{
 			isActive: activeRoute === 'Home',
 			activeBgColor: '#ffffff99',
-			icon: () => <ClockIcon iconColor={homeIconColor} />,
+			icon: () => (
+				<ClockIcon
+					iconColor={activeRoute === 'Kibla' ? '#fff' : homeIconColor}
+				/>
+			),
 			onPress: () => navigation.navigate('Root', { screen: 'Home' }),
+		},
+		{
+			isActive: activeRoute === 'Kibla',
+			activeBgColor: '#ffffff99',
+			icon: () => (
+				<KiblaIcon
+					stroke={
+						activeRoute === 'Kibla' || activeRoute === 'Home'
+							? '#fff'
+							: '#759CDC'
+					}
+				/>
+			),
+			onPress: () => navigation.navigate('Root', { screen: 'Kibla' }),
 		},
 		{
 			isActive: activeRoute === 'Settings',
@@ -41,7 +62,9 @@ const NavBar = ({ activeRoute, homeIconColor }: Props) => {
 			icon: () => (
 				<SettingsIcon
 					stroke={
-						activeRoute === 'Settings' || activeRoute === 'Home'
+						activeRoute === 'Settings' ||
+						activeRoute === 'Home' ||
+						activeRoute === 'Kibla'
 							? '#fff'
 							: '#759CDC'
 					}

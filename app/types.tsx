@@ -30,6 +30,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootTabParamList = {
 	Home: undefined;
 	Dates: undefined;
+	Kibla: undefined;
 	Settings: undefined;
 };
 

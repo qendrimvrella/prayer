@@ -1,14 +1,10 @@
-import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ImportantDates from '../components/ImportantDates';
 import NavBar from '../components/NavBar';
 import { Text } from '../components/Themed';
 import fontWeights from '../constants/fontWeights';
-import { RootTabScreenProps } from '../types';
 
-export default function DatesScreen({
-	navigation,
-}: RootTabScreenProps<'Dates'>) {
+export default function DatesScreen() {
 	return (
 		<View style={styles.container}>
 			<Text

@@ -3,13 +3,13 @@ import {
 	DefaultTheme,
 	DarkTheme,
 } from '@react-navigation/native';
-import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DatesScreen from '../screens/DatesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import KiblaScreen from '../screens/KiblaScreen';
 import { RootStackParamList } from '../types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BeforePrayerScreen from '../screens/BeforePrayerScreen';
@@ -77,20 +77,27 @@ function TabNavigator() {
 					headerShown: false,
 				})}
 			/>
-			<Tab.Screen
-				name="Dates"
-				component={DatesScreen}
-				options={() => ({
-					headerShown: false,
-				})}
-			/>
-			<Tab.Screen
-				name="Settings"
-				component={SettingsScreen}
-				options={() => ({
-					headerShown: false,
-				})}
-			/>
+		<Tab.Screen
+			name="Dates"
+			component={DatesScreen}
+			options={() => ({
+				headerShown: false,
+			})}
+		/>
+		<Tab.Screen
+			name="Kibla"
+			component={KiblaScreen}
+			options={() => ({
+				headerShown: false,
+			})}
+		/>
+		<Tab.Screen
+			name="Settings"
+			component={SettingsScreen}
+			options={() => ({
+				headerShown: false,
+			})}
+		/>
 		</Tab.Navigator>
 	);
 }
