@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
-import { useFocusEffect } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { Text } from '../components/Themed';
 import NavBar from '../components/NavBar';
 import fontWeights from '../constants/fontWeights';
@@ -165,6 +165,7 @@ export default function KiblaScreen() {
 	const [locationState, setLocationState] = React.useState<LocationState>({
 		status: 'idle',
 	});
+	const isFocused = useIsFocused();
 	const [compassHeading, setCompassHeading] = React.useState(0);
 	const rotationAnim = React.useRef(new Animated.Value(0)).current;
 	// Tracks the last raw target (qiblaBearing - compassHeading) without wrapping,
@@ -183,50 +184,74 @@ export default function KiblaScreen() {
 	const requestLocation = React.useCallback(async () => {
 		setLocationState({ status: 'loading' });
 		const { status } = await Location.requestForegroundPermissionsAsync();
+		console.log('status', status);
 		if (status !== 'granted') {
 			setLocationState({ status: 'denied' });
 			return;
 		}
-		const pos = await Location.getCurrentPositionAsync({
-			accuracy: Location.Accuracy.Balanced,
+
+		// Use the cached position first — returns instantly and is accurate
+		// enough for Qibla (Mecca is thousands of km away).
+		const last = await Location.getLastKnownPositionAsync({
+			maxAge: 3_600_000,
 		});
-		setLocationState({
-			status: 'granted',
-			lat: pos.coords.latitude,
-			lon: pos.coords.longitude,
-		});
+		if (last) {
+			setLocationState({
+				status: 'granted',
+				lat: last.coords.latitude,
+				lon: last.coords.longitude,
+			});
+			return;
+		}
+
+		// No cache (first permission grant) — watch for the first available
+		// position from any provider (WiFi, cell, GPS), whichever fires first.
+		let resolved = false;
+		let watchSub: Location.LocationSubscription | null = null;
+
+		watchSub = await Location.watchPositionAsync(
+			{ accuracy: Location.Accuracy.Low },
+			(pos) => {
+				if (resolved) return;
+				resolved = true;
+				watchSub?.remove();
+				setLocationState({
+					status: 'granted',
+					lat: pos.coords.latitude,
+					lon: pos.coords.longitude,
+				});
+			},
+		);
+
+		// In case the callback already fired before watchPositionAsync resolved.
+		if (resolved) watchSub.remove();
 	}, []);
 
 	React.useEffect(() => {
 		requestLocation();
 	}, []);
 
-	// Start the heading watcher only while this screen is focused.
-	// Automatically removed when navigating away, saving battery and CPU.
-	useFocusEffect(
-		React.useCallback(() => {
-			let sub: Location.LocationSubscription | null = null;
-			let cancelled = false;
+	// Start the heading watcher only when the screen is focused AND location is granted.
+	// Stops automatically when navigating away — no permission prompt here, that's
+	// handled exclusively by requestLocation.
+	React.useEffect(() => {
+		if (!isFocused || locationState.status !== 'granted') return;
 
-			Location.requestForegroundPermissionsAsync().then(({ status }) => {
-				if (status !== 'granted' || cancelled) return;
-				Location.watchHeadingAsync((h) => {
-					setCompassHeading(h.magHeading);
-				}).then((s) => {
-					if (cancelled) {
-						s.remove();
-					} else {
-						sub = s;
-					}
-				});
-			});
+		let sub: Location.LocationSubscription | null = null;
+		let cancelled = false;
 
-			return () => {
-				cancelled = true;
-				sub?.remove();
-			};
-		}, []),
-	);
+		Location.watchHeadingAsync((h) => {
+			setCompassHeading(h.magHeading);
+		}).then((s) => {
+			if (cancelled) s.remove();
+			else sub = s;
+		});
+
+		return () => {
+			cancelled = true;
+			sub?.remove();
+		};
+	}, [isFocused, locationState.status]);
 
 	// Animate the arrow, always taking the shortest angular path.
 	React.useEffect(() => {
