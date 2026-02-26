@@ -1,13 +1,5 @@
 import * as React from 'react';
-import {
-	StyleSheet,
-	View,
-	Platform,
-	Animated,
-	Easing,
-	TouchableOpacity,
-	ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, View, Platform, Animated, Easing } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
 import { useIsFocused } from '@react-navigation/native';
@@ -15,6 +7,10 @@ import { Text } from '../components/Themed';
 import NavBar from '../components/NavBar';
 import fontWeights from '../constants/fontWeights';
 import Svg, { Path, Circle, Text as SvgText, G } from 'react-native-svg';
+
+// Static coordinates for Kosovo (central approximation)
+const USER_LAT = 42.6;
+const USER_LON = 20.9;
 
 const MECCA_LAT = 21.3891;
 const MECCA_LON = 39.8579;
@@ -32,6 +28,10 @@ function calculateQiblaBearing(lat1: number, lon1: number): number {
 		Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
 	return (toDeg(Math.atan2(y, x)) + 360) % 360;
 }
+
+// Pre-computed — never changes since coordinates are static
+const QIBLA_BEARING = calculateQiblaBearing(USER_LAT, USER_LON);
+
 const COMPASS_SIZE = 260;
 const CENTER = COMPASS_SIZE / 2;
 const RADIUS = CENTER - 16;
@@ -64,7 +64,6 @@ function CompassRing() {
 				strokeWidth={1}
 				fill="none"
 			/>
-
 			{ticks.map((angle) => {
 				const rad = toRad(angle - 90);
 				const isMajor = angle % 90 === 0;
@@ -92,7 +91,6 @@ function CompassRing() {
 					/>
 				);
 			})}
-
 			{cardinals.map(({ label, angle }) => {
 				const rad = toRad(angle - 90);
 				const r = RADIUS - 30;
@@ -155,110 +153,53 @@ function QiblaArrow({ rotation }: { rotation: Animated.Value }) {
 	);
 }
 
-type LocationState =
-	| { status: 'idle' }
-	| { status: 'loading' }
-	| { status: 'granted'; lat: number; lon: number }
-	| { status: 'denied' };
-
 export default function KiblaScreen() {
-	const [locationState, setLocationState] = React.useState<LocationState>({
-		status: 'idle',
-	});
 	const isFocused = useIsFocused();
 	const [compassHeading, setCompassHeading] = React.useState(0);
 	const rotationAnim = React.useRef(new Animated.Value(0)).current;
-	// Tracks the last raw target (qiblaBearing - compassHeading) without wrapping,
-	// so animations always take the shortest path and never spin the wrong way.
+	const alignedAnim = React.useRef(new Animated.Value(0)).current;
 	const lastTarget = React.useRef(0);
 
-	const coords =
-		locationState.status === 'granted'
-			? { lat: locationState.lat, lon: locationState.lon }
-			: null;
+	// Arrow offset from pointing straight up — within ±10° means aligned.
+	const arrowOffset = (((QIBLA_BEARING - compassHeading) % 360) + 360) % 360;
+	const isAligned = arrowOffset <= 10 || arrowOffset >= 350;
 
-	const qiblaBearing = coords
-		? calculateQiblaBearing(coords.lat, coords.lon)
-		: null;
-
-	const requestLocation = React.useCallback(async () => {
-		setLocationState({ status: 'loading' });
-		const { status } = await Location.requestForegroundPermissionsAsync();
-		console.log('status', status);
-		if (status !== 'granted') {
-			setLocationState({ status: 'denied' });
-			return;
-		}
-
-		// Use the cached position first — returns instantly and is accurate
-		// enough for Qibla (Mecca is thousands of km away).
-		const last = await Location.getLastKnownPositionAsync({
-			maxAge: 3_600_000,
-		});
-		if (last) {
-			setLocationState({
-				status: 'granted',
-				lat: last.coords.latitude,
-				lon: last.coords.longitude,
-			});
-			return;
-		}
-
-		// No cache (first permission grant) — watch for the first available
-		// position from any provider (WiFi, cell, GPS), whichever fires first.
-		let resolved = false;
-		let watchSub: Location.LocationSubscription | null = null;
-
-		watchSub = await Location.watchPositionAsync(
-			{ accuracy: Location.Accuracy.Low },
-			(pos) => {
-				if (resolved) return;
-				resolved = true;
-				watchSub?.remove();
-				setLocationState({
-					status: 'granted',
-					lat: pos.coords.latitude,
-					lon: pos.coords.longitude,
-				});
-			},
-		);
-
-		// In case the callback already fired before watchPositionAsync resolved.
-		if (resolved) watchSub.remove();
-	}, []);
-
+	// Start/stop the heading watcher based on screen focus.
 	React.useEffect(() => {
-		requestLocation();
-	}, []);
-
-	// Start the heading watcher only when the screen is focused AND location is granted.
-	// Stops automatically when navigating away — no permission prompt here, that's
-	// handled exclusively by requestLocation.
-	React.useEffect(() => {
-		if (!isFocused || locationState.status !== 'granted') return;
+		if (!isFocused) return;
 
 		let sub: Location.LocationSubscription | null = null;
 		let cancelled = false;
 
-		Location.watchHeadingAsync((h) => {
-			setCompassHeading(h.magHeading);
-		}).then((s) => {
-			if (cancelled) s.remove();
-			else sub = s;
+		Location.requestForegroundPermissionsAsync().then(({ status }) => {
+			if (status !== 'granted' || cancelled) return;
+			Location.watchHeadingAsync((h) => {
+				setCompassHeading(h.magHeading);
+			}).then((s) => {
+				if (cancelled) s.remove();
+				else sub = s;
+			});
 		});
 
 		return () => {
 			cancelled = true;
 			sub?.remove();
 		};
-	}, [isFocused, locationState.status]);
+	}, [isFocused]);
 
-	// Animate the arrow, always taking the shortest angular path.
+	// Fade the green ring in/out.
 	React.useEffect(() => {
-		if (qiblaBearing === null) return;
+		Animated.timing(alignedAnim, {
+			toValue: isAligned ? 1 : 0,
+			duration: 300,
+			easing: Easing.out(Easing.quad),
+			useNativeDriver: true,
+		}).start();
+	}, [isAligned]);
 
-		const raw = qiblaBearing - compassHeading;
-		// Shortest-path delta so the arrow never spins 350° instead of 10°.
+	// Rotate the arrow, always taking the shortest path.
+	React.useEffect(() => {
+		const raw = QIBLA_BEARING - compassHeading;
 		let delta = raw - lastTarget.current;
 		delta = ((((delta + 180) % 360) + 360) % 360) - 180;
 		lastTarget.current += delta;
@@ -269,53 +210,7 @@ export default function KiblaScreen() {
 			easing: Easing.out(Easing.quad),
 			useNativeDriver: true,
 		}).start();
-	}, [compassHeading, qiblaBearing]);
-
-	const renderSubtitle = () => {
-		if (locationState.status === 'granted') {
-			return `${locationState.lat.toFixed(4)}°, ${locationState.lon.toFixed(4)}°`;
-		}
-		return 'Vendndodhja juaj';
-	};
-
-	if (locationState.status === 'idle' || locationState.status === 'loading') {
-		return (
-			<LinearGradient
-				style={styles.container}
-				colors={['#043347', '#0D1B26']}>
-				<View style={styles.centerState}>
-					<ActivityIndicator size="large" color="#FFCC6A" />
-					<Text style={styles.stateText}>
-						Duke marrë vendndodhjen…
-					</Text>
-				</View>
-				<NavBar activeRoute="Kibla" />
-			</LinearGradient>
-		);
-	}
-
-	if (locationState.status === 'denied') {
-		return (
-			<LinearGradient
-				style={styles.container}
-				colors={['#043347', '#0D1B26']}>
-				<View style={styles.centerState}>
-					<Text style={styles.permissionIcon}>📍</Text>
-					<Text style={styles.stateTitle}>Kërkohet vendndodhja</Text>
-					<Text style={styles.stateBody}>
-						Për të gjetur drejtimin e Kiblës, na duhet vendndodhja
-						juaj e saktë.
-					</Text>
-					<TouchableOpacity
-						style={styles.allowButton}
-						onPress={requestLocation}>
-						<Text style={styles.allowButtonText}>Lejo qasjen</Text>
-					</TouchableOpacity>
-				</View>
-				<NavBar activeRoute="Kibla" />
-			</LinearGradient>
-		);
-	}
+	}, [compassHeading]);
 
 	return (
 		<LinearGradient
@@ -323,11 +218,16 @@ export default function KiblaScreen() {
 			colors={['#043347', '#0D1B26']}>
 			<View style={styles.header}>
 				<Text style={styles.title}>Kibla</Text>
-				<Text style={styles.subtitle}>{renderSubtitle()}</Text>
+				<Text style={styles.subtitle}>
+					{Math.round(QIBLA_BEARING)}° · Kosovë
+				</Text>
 			</View>
 
 			<View style={styles.compassWrapper}>
 				<View style={styles.compassContainer}>
+					<Animated.View
+						style={[styles.alignedRing, { opacity: alignedAnim }]}
+					/>
 					<CompassRing />
 					<QiblaArrow rotation={rotationAnim} />
 					<View style={styles.kaabaLabel}>
@@ -337,9 +237,7 @@ export default function KiblaScreen() {
 
 				<View style={styles.directionBadge}>
 					<Text style={styles.directionDeg}>
-						{qiblaBearing !== null
-							? `${Math.round(qiblaBearing)}°`
-							: '—'}
+						{Math.round(QIBLA_BEARING)}°
 					</Text>
 					<Text style={styles.directionLabel}>Drejtimi i Kiblës</Text>
 				</View>
@@ -363,49 +261,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingTop: Platform.OS === 'ios' ? 65 : 55,
 		alignItems: 'center',
-	},
-	centerState: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingHorizontal: 40,
-		paddingBottom: 90,
-	},
-	permissionIcon: {
-		fontSize: 52,
-		marginBottom: 20,
-	},
-	stateTitle: {
-		color: '#fff',
-		fontSize: 22,
-		fontFamily: fontWeights[500],
-		textAlign: 'center',
-		marginBottom: 12,
-	},
-	stateBody: {
-		color: 'rgba(255,255,255,0.6)',
-		fontSize: 15,
-		fontFamily: fontWeights[400],
-		textAlign: 'center',
-		lineHeight: 22,
-		marginBottom: 32,
-	},
-	stateText: {
-		color: 'rgba(255,255,255,0.6)',
-		fontSize: 15,
-		fontFamily: fontWeights[400],
-		marginTop: 16,
-	},
-	allowButton: {
-		backgroundColor: '#FFCC6A',
-		paddingHorizontal: 36,
-		paddingVertical: 14,
-		borderRadius: 50,
-	},
-	allowButtonText: {
-		color: '#0D1B26',
-		fontSize: 16,
-		fontFamily: fontWeights[500],
 	},
 	header: {
 		alignItems: 'center',
@@ -431,6 +286,19 @@ const styles = StyleSheet.create({
 		height: COMPASS_SIZE,
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	alignedRing: {
+		position: 'absolute',
+		width: COMPASS_SIZE + 16,
+		height: COMPASS_SIZE + 16,
+		borderRadius: (COMPASS_SIZE + 16) / 2,
+		borderWidth: 3,
+		borderColor: '#4ADE80',
+		shadowColor: '#4ADE80',
+		shadowOffset: { width: 0, height: 0 },
+		shadowOpacity: 0.9,
+		shadowRadius: 12,
+		elevation: 10,
 	},
 	kaabaLabel: {
 		position: 'absolute',
@@ -475,15 +343,5 @@ const styles = StyleSheet.create({
 		fontFamily: fontWeights[400],
 		lineHeight: 19,
 		flex: 1,
-	},
-	permissionWarning: {
-		marginTop: 16,
-		paddingHorizontal: 32,
-	},
-	permissionText: {
-		color: 'rgba(255,200,100,0.85)',
-		textAlign: 'center',
-		fontSize: 13,
-		fontFamily: fontWeights[400],
 	},
 });
